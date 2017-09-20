@@ -1,0 +1,20 @@
+Blockchain Visualisation Web App - 
+
+
+
+My final year project will be a Blockchain Visualisation App.
+This is .
+
+The project repeository is available here:
+https://github.com/JohnFromWIT/FYP-Blockchain-Visualisation
+
+Software being used:
+Node.js            https://nodejs.org/en/
+WebStorm       https://www.jetbrains.com/webstorm/
+Heroku             https://www.heroku.com
+MongoDB        https://www.mongodb.com
+Git                     https://github.com
+
+
+
+Final Year Project, Project Development, Programming, IT, Software Development, Blockchain
