@@ -24,11 +24,11 @@ Software being used:
 Description:  
 The goal of the app is to demonstrate visually the technical process of a blockchain. The app will have no built in transaction functionality or wallet. It will store messages created by the user. 
 
-Properties:
--Multi-user 
--Built-In Authentication 
--Searchable Networks 
--Searchable Blocks 
--Choice of Networks 
--Chat functionality 
--Chat tokens as incentives 
+Properties:  
+-Multi-user  
+-Built-In Authentication  
+-Searchable Networks  
+-Searchable Blocks  
+-Choice of Networks  
+-Chat functionality  
+-Chat tokens as incentives  
