@@ -61,7 +61,8 @@
   <body>
     <div id="message">
       <h2>Welcome</h2>
-      <h1 id="msg">First Successful Prototype</h1>
+      <h1 id="msg">Successful Prototype</h1>
+      <h1 id="msg_upper">UPPERCASE</h1>
       <input id="sampleText" type="text" name="fname" value="">
       <!--<button id="btn_Update" onclick="updateMessage()">Try it</button>-->
       <input type="button" id="btn_Update" value="Try It" onclick="updateMessage();" />
@@ -89,15 +90,20 @@
     <script>
       //sync message to database
       var msg = document.getElementById('msg');
-      var dbRef = firebase.database().ref().child('message');
-      dbRef.on('value', snap => msg.innerText = snap.val());
+      var msgu = document.getElementById('msg_upper');
+      var mRef = firebase.database().ref().child('message');
+      var uRef = firebase.database().ref().child('uppercase');
+
+      mRef.on('value', snap => msg.innerText = snap.val());
+      uRef.on('value', snap => msg_upper.innerText = snap.val());
+
     </script>
 
     <script>
         //update the message
       function updateMessage() {
           var text = document.getElementById('sampleText').value;
-          dbRef.set(text);
+          mRef.set(text);
           document.getElementById('sampleText').value = "";
           var snackbar = document.getElementById("messageSnackbar")
           snackbar.className = "show";
