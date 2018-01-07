@@ -16,29 +16,95 @@
     <script defer src="/__/firebase/init.js"></script>
 
     <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      body { background: #111; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
       #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
       #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
       #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
       #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
       #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
       #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      #messageSnackbar {visibility: hidden; min-width: 250px; margin-left: -125px; background-color: #333; color: #fff; text-align: center; border-radius: 2px;padding: 16px; position: fixed; z-index: 1; left: 50%;bottom: 30px;}
+      #load { color: #fff ; text-align: center; font-size: 13px; }
       @media (max-width: 600px) {
         body, #message { margin-top: 0; background: white; box-shadow: none; }
         body { border-top: 16px solid #ffa100; }
       }
+
+      /* Animations for snackbar */
+      #messageSnackbar.show {
+        visibility: visible;
+        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      }
+      @-webkit-keyframes fadein {
+        from {bottom: 0; opacity: 0;}
+        to {bottom: 30px; opacity: 1;}
+      }
+
+      @keyframes fadein {
+        from {bottom: 0; opacity: 0;}
+        to {bottom: 30px; opacity: 1;}
+      }
+
+      @-webkit-keyframes fadeout {
+        from {bottom: 30px; opacity: 1;}
+        to {bottom: 0; opacity: 0;}
+      }
+
+      @keyframes fadeout {
+        from {bottom: 30px; opacity: 1;}
+        to {bottom: 0; opacity: 0;}
+      }
+
     </style>
   </head>
   <body>
     <div id="message">
       <h2>Welcome</h2>
-      <h1>First Successful Prototype</h1>
+      <h1 id="msg">First Successful Prototype</h1>
+      <input id="sampleText" type="text" name="fname" value="">
+      <!--<button id="btn_Update" onclick="updateMessage()">Try it</button>-->
+      <input type="button" id="btn_Update" value="Try It" onclick="updateMessage();" />
       <p>Blockchain Visualisation Web App</p>
       <p>20056594</p>
       <a target="_blank" href="https://github.com/JohnFromWIT/Blockchain-Visualisation-Web-App">Github Repository</a>
     </div>
     <p id="load">Firebase SDK Loading&hellip;</p>
+    <div id="messageSnackbar">Text updated across all devices viewing this page</div>
+
+    <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBERESHwl8m2_KLNX3MujVltBbhdQpoOqI",
+            authDomain: "blockchain-visualisation-app.firebaseapp.com",
+            databaseURL: "https://blockchain-visualisation-app.firebaseio.com",
+            projectId: "blockchain-visualisation-app",
+            storageBucket: "blockchain-visualisation-app.appspot.com",
+            messagingSenderId: "198246009981"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script>
+      //sync message to database
+      var msg = document.getElementById('msg');
+      var dbRef = firebase.database().ref().child('message');
+      dbRef.on('value', snap => msg.innerText = snap.val());
+    </script>
+
+    <script>
+        //update the message
+      function updateMessage() {
+          var text = document.getElementById('sampleText').value;
+          dbRef.set(text);
+          document.getElementById('sampleText').value = "";
+          var snackbar = document.getElementById("messageSnackbar")
+          snackbar.className = "show";
+          setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+
+      }
+    </script>
 
     <script>
       document.addEventListener('DOMContentLoaded', function() {
@@ -58,7 +124,7 @@
           document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
         } catch (e) {
           console.error(e);
-          document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
+          document.getElementById('load').innerHTML = 'FirebaseSDK Not Loaded';
         }
       });
     </script>
