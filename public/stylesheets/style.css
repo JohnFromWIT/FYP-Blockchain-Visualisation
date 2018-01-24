@@ -1,8 +1,49 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+/*Body*/
+body { background: #212; background-image: url("https://i.imgur.com/23J04Lb.png"); color: rgba(21,11,21,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+
+/*Message Elements*/
+#message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
+#message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+#message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+#message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+#message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+#message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+
+/*Responsiveness*/
+@media (max-width: 600px) {
+  body, #message { margin-top: 0;  box-shadow: none; width:590px;}
+  body { border-top: 16px solid #ffa100; }
+  div.logo{left:12%;}
+  div.logo{position:relative; left:35%; width:450px; height:220px; background-image: url("https://i.imgur.com/8FrFO8O.png");}
+
 }
 
-a {
-  color: #00B7FF;
+/* Animations for snackbar */
+#messageSnackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+
+/*Snackbar*/
+#messageSnackbar {visibility: hidden; min-width: 250px; margin-left: -125px; background-color: #333; color: #fff; text-align: center; border-radius: 2px;padding: 16px; position: fixed; z-index: 1; left: 50%;bottom: 30px;}
