@@ -46,5 +46,65 @@
         <div id= "client5" class="n"><div class="n1"><div class="n2"></div></div></div>
 
     </div>
+
+    <div id="message">
+    <h1 id="msg">Successful Prototype</h1>
+    <h1 id="msg_upper">UPPERCASE</h1>
+    <input id="sampleText" type="text" name="fname" placeholder="Enter a message.." value="">
+    <!--<button id="btn_Update" onclick="updateMessage()">Try it</button>-->
+    <input type="button" id="btn_Update" value="Try It" onclick="updateMessage();" />
+    </div>
+    <div id="messageSnackbar">Text updated across all devices viewing this page</div>
+
+
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBERESHwl8m2_KLNX3MujVltBbhdQpoOqI",
+            authDomain: "blockchain-visualisation-app.firebaseapp.com",
+            databaseURL: "https://blockchain-visualisation-app.firebaseio.com",
+            projectId: "blockchain-visualisation-app",
+            storageBucket: "blockchain-visualisation-app.appspot.com",
+            messagingSenderId: "198246009981"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script>
+        //update the message
+        function updateMessage() {
+            var text = document.getElementById('sampleText').value;
+            mRef.set(text);
+            document.getElementById('sampleText').value = "";
+            var snackbar = document.getElementById("messageSnackbar")
+            snackbar.className = "show";
+            setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+            // // The Firebase SDK is initialized and available here!
+            //
+            // firebase.auth().onAuthStateChanged(user => { });
+            // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+            // firebase.messaging().requestPermission().then(() => { });
+            // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+            //
+            // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+            try {
+                let app = firebase.app();
+                let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+                document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
+            } catch (e) {
+                console.error(e);
+                document.getElementById('load').innerHTML = 'FirebaseSDK Not Loaded';
+            }
+        });
+    </script>
+
 </body>
 </html>
