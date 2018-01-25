@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/tabs.css">
     <title>Blockchain</title>
 
     <style>
-        #map { background: rgba(21,11,21,0.6); max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
+        .map { background: rgba(21,11,21,0.6); max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
         .mining{ animation-name: pulse; animation-duration: 0.5s; animation-timing-function:ease-out; animation-iteration-count: infinite; animation-direction: reverse;}
 
         div.n{position:relative; width: 50px; height: 50px;}
@@ -36,7 +37,7 @@
 <body>
     <div class="logo"></div>
 
-    <div id="map">
+    <div class="map">
 
         <!-- Pulse animation test div-->
         <div id= "client1" class="n"><div class="n1"><div class="n2 mining"></div></div></div>
@@ -47,14 +48,50 @@
 
     </div>
 
-    <div id="message">
-    <h1 id="msg">Successful Prototype</h1>
-    <h1 id="msg_upper">UPPERCASE</h1>
-    <input id="sampleText" type="text" name="fname" placeholder="Enter a message.." value="">
-    <!--<button id="btn_Update" onclick="updateMessage()">Try it</button>-->
-    <input type="button" id="btn_Update" value="Try It" onclick="updateMessage();" />
+    <div class="message tabbox">
+        <input class="tabs" id="tab1" type="radio" name="tabs" checked>
+        <label for="tab1">Messages</label>
+
+        <input class="tabs" id="tab2" type="radio" name="tabs">
+        <label for="tab2">Blocks</label>
+
+        <input class="tabs" id="tab3" type="radio" name="tabs">
+        <label for="tab3">Clients</label>
+
+        <input class="tabs" id="tab4" type="radio" name="tabs">
+        <label for="tab4">Mining</label>
+
+        <section id="content1">
+            <h1 id="msg">Successful Prototype</h1>
+            <h1 id="msg_upper">UPPERCASE</h1>
+            <input id="sampleText" type="text" name="fname" placeholder="Enter a message.." value="">
+            <!--<button id="btn_Update" onclick="updateMessage()">Try it</button>-->
+            <input type="button" id="btn_Update" value="Try It" onclick="updateMessage();" />
+        </section>
+
+        <section id="content2">
+            <p>
+                blocks
+            </p>
+        </section>
+
+        <section id="content3">
+            <p>
+                clients
+            </p>
+        </section>
+
+        <section id="content4">
+            <p>
+                mining
+            </p>
+        </section>
+
     </div>
-    <div id="messageSnackbar">Text updated across all devices viewing this page</div>
+    <p id="load">Firebase SDK Loading&hellip;</p>
+
+    <div class="messageSnackbar">Text updated across all devices viewing this page</div>
+
 
 
     <script>
@@ -98,7 +135,7 @@
             try {
                 let app = firebase.app();
                 let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-                document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
+                document.getElementById('load').innerHTML = 'Firebase SDK loaded with ${features.join(', ')}';
             } catch (e) {
                 console.error(e);
                 document.getElementById('load').innerHTML = 'FirebaseSDK Not Loaded';
