@@ -69,6 +69,12 @@
 
         <section id="content1">
             <div class = "tab_contents">
+                <div class="tab_header">
+                    <div class="header_box">
+                    <input class="m_input" id="sampleText" type="text" name="fname" placeholder="Write Message Here.." value="">
+                    <button class="m_send" id="btn_Update" onclick="updateMessage()">Send</button>
+                    </div>
+                </div>
                 <div id="m1" class="item_portion">
                     <div class = "m_leftsection">
                         <div class = "m_leftsectionupper">
@@ -163,6 +169,13 @@
 
         <section id="content2">
             <div class = "tab_contents">
+                <div class="tab_header">
+                    <div class="header_box">
+                        <div class="single_chunk" id="b_difficulty">Difficulty: 45</div>
+                        <div class="single_chunk" id="b_chainlength">Chain Length: 45</div>
+
+                        </div>
+                </div>
                 <div id="b1" class="item_portion">
                     <div class="b_leftsection">
                         <div class="single_chunk b_number">122</div>
@@ -189,8 +202,12 @@
 
         <section id="content3">
             <div class = "tab_contents">
-                <div class = "tab_contents">
-                    <div id="c1" class="item_portion">
+                <div class="tab_header">
+                    <div class="header_box">
+                        <button class="c_add" id="c_btn_add" onclick="addBot()">+</button>
+                    </div>
+                </div>
+                <div id="c1" class="item_portion">
                         <div class="c_leftsection">
                             <div class="c_block"></div>
                         </div>
@@ -202,16 +219,72 @@
                             </label>
                         </div>
 
+                    </div>
+                <div id="c2" class="item_portion">
+                        <div class="c_leftsection">
+                            <div class="c_block"></div>
                         </div>
-                </div>
+                        <div class="c_midsection">Bot1</div>
+                        <div class="c_rightsection">
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider round"></span>
+                            </label>
+                            <button class="c_remove" id="c_btn_remove" onclick="removeBot()">-</button>
+                        </div>
+
+                    </div>
             </div>
         </section>
 
         <section id="content4">
             <div class = "tab_contents">
-            <p>
-                mining
-            </p>
+                <div class="tab_header">
+                    <div class="header_box">
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+
+                    </div>
+                </div>
+
+                    <div class="miner_statlayer1">
+                        <div class="miner_statlayer_leftsection">Current Block</div>
+                        <div class="miner_statlayer_midsection">Difficulty</div>
+                    </div>
+                    <div class="miner_statlayer2">
+                        <div class="miner_statlayer_leftsection">Nonce</div>
+                        <div class="miner_statlayer_midsection">Package</div>
+
+                    </div>
+                    <div class="miner_statlayer2">
+                        <div class="miner_statlayer_leftsection">Hit</div>
+                        <div class="miner_statlayer_midsection">Difficulty</div>
+
+                    </div>
+
+                <div id="a1" class="item_portion miner_attempt">
+                    <div class="a_col_block">a</div>
+                    <div class="a_col_hit">a</div>
+                    <div class="a_col_nonce">a</div>
+                    <div class="a_col_package">a</div>
+                    <div class="a_col_message">a</div>
+                </div>
+                <div id="a2" class="item_portion miner_attempt">
+                    <div class="a_col_block">a</div>
+                    <div class="a_col_hit">a</div>
+                    <div class="a_col_nonce">a</div>
+                    <div class="a_col_package">a</div>
+                    <div class="a_col_message">a</div>
+                </div>
+                <div id="a3" class="item_portion miner_attempt">
+                    <div class="a_col_block">a</div>
+                    <div class="a_col_hit">a</div>
+                    <div class="a_col_nonce">a</div>
+                    <div class="a_col_package">a</div>
+                    <div class="a_col_message">a</div>
+                </div>
             </div>
         </section>
 

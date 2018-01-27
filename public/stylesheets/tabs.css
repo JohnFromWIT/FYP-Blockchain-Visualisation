@@ -46,12 +46,22 @@ input:checked + label.tab {
 
 /*START - Inside the tabs - START*/
 
+
 .tab_contents{
     height: 300px;
     width:100%;
     margin:auto;
     background: rgba(21,11,21,0.87);
     color: white;
+}
+
+.tab_header{
+    height:40px;
+    width:100%;
+}
+
+.header_box{
+    float:right;
 }
 
 .item_portion{
@@ -62,6 +72,16 @@ input:checked + label.tab {
 
 /*START -- Message Tab -- START*/
 
+.m_send{
+    height:30px;
+    width: 50px;
+    border-radius: 2px 10px 10px 2px;
+}
+
+.m_input{
+    height:25px;
+    width: 200px;
+}
 
 .m_leftsection{
     background: rgba(21,11,21,0.87);
@@ -165,13 +185,17 @@ input:checked + label.tab {
 
 .single_chunk{
     background: #220e0e;
-    height: 30px;
+    height: 15px;
     width: 100%;
 }
 
 /*END -- Block Tab -- END*/
 
 /*START -- Client Tab -- START*/
+.c_add{
+    height: 25px;
+    width:25px;
+}
 
 .c_leftsection{
     background: blue;
@@ -242,6 +266,29 @@ input:checked + .slider:before {
 /*END --- Slider --- END*/
 
 /*END -- Client Tab -- END*/
+
+/*START -- Miner Tab -- START*/
+.miner_statlayer1{
+    width: 100%;
+
+}
+
+.miner_statlayer2{
+    width: 100%;
+
+}
+
+.miner_attempt{
+    height:20px;
+}
+
+.miner_attempt div{
+    float:left;
+    width:50px;
+}
+
+/*END -- Miner Tab -- END*/
+
 
 /*END - Inside the tabs - END*/
 
