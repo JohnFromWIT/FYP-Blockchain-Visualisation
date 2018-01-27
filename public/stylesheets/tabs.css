@@ -1,0 +1,168 @@
+section {
+    display: none;
+    padding: 20px 0 0;
+    border-top: 1px solid #ddd;
+}
+
+input.tabs {
+    display: none;
+}
+
+label {
+    display: inline-block;
+    margin: 0 0 -1px;
+    padding: 15px 25px;
+    font-weight: 600;
+    text-align: center;
+    color: #bbb;
+    border: 1px solid white;
+}
+
+label:before {
+
+    font-weight: normal;
+    margin-right: 10px;
+}
+
+label:hover {
+    color: #888;
+    cursor: pointer;
+}
+
+input:checked + label {
+    color: #555;
+    border: 1px solid #ddd;
+    border-top: 2px solid orange;
+    border-bottom: 1px solid #fff;
+}
+
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3,
+#tab4:checked ~ #content4 {
+    display: block;
+}
+
+
+/*START - Inside the tabs - START*/
+
+.tab_contents{
+    height: 300px;
+    width:100%;
+    margin:auto;
+    background: rgba(21,11,21,0.87);
+    color: white;
+}
+
+.item_portion{
+    height: 75px;
+    background: rgba(21,11,21,0.87);
+    border: 1px solid rgba(165, 139, 155, 0.87);
+}
+
+/*START -- Block Tab -- START*/
+
+
+
+/*END -- Block Tab -- END*/
+
+
+/*START -- Message Tab -- START*/
+
+
+.m_leftsection{
+    background: rgba(21,11,21,0.87);
+    float: left;
+    width:199px;
+    height: 75px;
+}
+
+.m_leftsectionupper{
+    background: rgba(21,11,21,0.87);
+    height: 20px;
+
+}
+.m_user{
+    float: left;
+    text-align: center;
+    background: rgba(21,11,21,0.87);
+    width:50%;
+    height:100%;
+}
+
+.m_timesection{
+    float: left;
+    background: rgba(21,11,21,0.87);
+    width: 50%;
+    height:100%;
+}
+
+.m_timetitle{
+    background: rgba(21,11,21,0.87);
+    float: left;
+    width: 50%;
+    height: 100%;
+}
+
+.m_time{
+    background: rgba(21,11,21,0.87);
+    float: left;
+    width: 50%;
+    height: 100%;
+}
+
+.m_progresssection{
+    background: rgba(21,11,21,0.87);
+    width: 190px;
+    margin:5px auto;
+    height: 30px;
+}
+
+.m_progressbar{
+    background: #220e0e;
+    width:190px;
+    height: 100%;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+
+.m_progress{
+    background: #ff7b11;
+    float: left;
+    width:50%;
+    height: 100%;
+    border-radius: 25px;
+}
+
+.m_content{
+    background: rgba(21,11,21,0.87);
+    float: left;
+    height: 75px;
+    width:100%;
+    max-width:549px;
+    font-size: 2em;
+}
+
+.m_cblock{
+
+}
+
+/*END -- Message Tab -- END*/
+/*END - Inside the tabs - END*/
+
+@media screen and (max-width: 650px) {
+    label {
+        font-size: 0;
+    }
+    label:before {
+        margin: 0;
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    label {
+        padding: 15px;
+    }
+}
