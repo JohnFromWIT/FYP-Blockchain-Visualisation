@@ -23,11 +23,21 @@
   </head>
   <body>
 
+  <!--TESTING AREA-->
+
+  <script>
+      var me = new User();
+      alert(me.getFullName());
+  </script>
+
+  <!--TESTING AREA-->
+
+
   <div class="logo"></div>
 
 
   <div class="message loginbox">
-      <h2>Welcome</h2>
+      <h2 id="welcome">Welcome</h2>
       <a id="blockchain_link" target="_blank" href="blockchain/network.html">Visit Blockchain</a>
       <!-- Button that handles sign-in/sign-out -->
       <button disabled class="centered mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in">Sign in with Google</button>
@@ -125,6 +135,8 @@
                     // User is signed in.
                     var displayName = user.displayName;
                     // [START_EXCLUDE]
+
+                    document.getElementById('welcome').textContent = "Test Complete";
                     document.getElementById('quickstart-sign-in').textContent = 'Sign out';
                     document.getElementById('quickstart-display-name').textContent = displayName;
                     document.getElementById('blockchain_link').textContent = 'Visit Blockchain';
