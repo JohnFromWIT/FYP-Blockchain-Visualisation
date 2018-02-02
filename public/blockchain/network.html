@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/tabs.css">
+    <script type="text/javascript" src="../javascripts/Client.js"></script>
     <title>Blockchain</title>
 
     <style>
@@ -21,15 +22,20 @@
 
     </style>
 
-
     <style>
         /* Clients position and colors on map*/
         /* IDs */
-        #client1{top:70px; left:50%; color: #00B7FF}
-        #client2{top:20px; left:20%; color: #ffa100}
-        #client3{top:40px; left:70%; color: #999999}
-        #client4{top:0px; left:40%; color: #ffa100}
-        #client5{top:0px; left:20%; color: #00B7FF}
+        #client1{top:70px; left:50%}
+        #client2{top:20px; left:20%}
+        #client3{top:40px; left:70%}
+        #client4{top:0px; left:40%}
+        #client5{top:0px; left:20%}
+
+        #client1 .n2{background-color: #ffa100}
+        #client1 .n2{background-color: #ffa100}
+        #client1 .n2{background-color: #ffa100}
+        #client1 .n2{background-color: #ffa100}
+        #client1 .n2{background-color: #ffa100}
 
         #m1 .m_progress{width: 100%;}
 
@@ -43,6 +49,23 @@
 <body>
     <div class="logo"></div>
 
+    <!--TESTING AREA-->
+
+    <script>
+        document.write("<style>");
+
+        var i;
+        for(i=1; i<6; i++){
+            var client = new User();
+            document.write("#client"+i+"{top:"+ client.coY+"px; left:"+client.coY+"%}");
+            document.write("\n");
+            document.write("#client"+i+" .n2{background-color: "+ client.blockColour+"}");
+        }
+        document.write("</style>");
+
+    </script>
+
+    <!--TESTING AREA-->
     <div class="map">
 
         <!-- Pulse animation test div-->
