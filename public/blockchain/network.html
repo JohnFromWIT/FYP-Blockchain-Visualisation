@@ -4,47 +4,40 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/tabs.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/map.css">
     <script type="text/javascript" src="../javascripts/Client.js"></script>
     <script type="text/javascript" src="../javascripts/Block.js"></script>
     <script type="text/javascript" src="../javascripts/Message.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
     <title>Blockchain</title>
 
     <style>
-        .map { background: rgba(21,11,21,0.6); max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-        .mining{ animation-name: pulse; animation-duration: 0.5s; animation-timing-function:ease-out; animation-iteration-count: infinite; animation-direction: reverse;}
-
-        div.n{position:relative; width: 50px; height: 50px;}
-        div.n1{width: 100%; height: 100%; -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%; background-color: white; position:relative; top:1%; left:1%; opacity:0.6;}
-        div.n2 {width: 100%; height: 100%; -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%; background-color: white; position: relative; top:0%; left:0%; z-index:-1; }
-
-
-        @keyframes pulse{
-            from {background-color:white; left:-10%; top:-10%; width:120%; height:120%; opacity:0}
-            }
 
     </style>
 
-    <style>
-        /* Clients position and colors on map*/
-        /* IDs */
-        #client1{top:70px; left:50%}
-        #client2{top:20px; left:20%}
-        #client3{top:40px; left:70%}
-        #client4{top:0px; left:40%}
-        #client5{top:0px; left:20%}
+    <!--Consider deleting commented code below here-->
 
-        #client1 .n2{background-color: #ffa100}
-        #client1 .n2{background-color: #ffa100}
-        #client1 .n2{background-color: #ffa100}
-        #client1 .n2{background-color: #ffa100}
-        #client1 .n2{background-color: #ffa100}
+    <!--<style>-->
+        <!--/* Clients position and colors on map*/-->
+        <!--/* IDs */-->
+        <!--#client1{top:70px; left:50%}-->
+        <!--#client2{top:20px; left:20%}-->
+        <!--#client3{top:40px; left:70%}-->
+        <!--#client4{top:0px; left:40%}-->
+        <!--#client5{top:0px; left:20%}-->
 
-        #m1 .m_progress{width: 100%;}
+        <!--#client1 .n2{background-color: #ffa100}-->
+        <!--#client1 .n2{background-color: #ffa100}-->
+        <!--#client1 .n2{background-color: #ffa100}-->
+        <!--#client1 .n2{background-color: #ffa100}-->
+        <!--#client1 .n2{background-color: #ffa100}-->
 
-        #b1{
-            background: #00B7FF;
-        }
-    </style>
+        <!--#m1 .m_progress{width: 100%;}-->
+
+        <!--#b1{-->
+            <!--background: #00B7FF;-->
+        <!--}-->
+    <!--</style>-->
 
 
 </head>
@@ -54,41 +47,42 @@
     <!--TESTING AREA-->
 
     <script>
-        document.write("<style>");
 
-        var i;
-        for(i=1; i<6; i++){
-            var client = new User();
-            document.write("#client"+i+"{top:"+ client.coY+"px; left:"+client.coX+"%}");
-            document.write("\n");
-            document.write("#client"+i+" .n2{background-color: "+ client.blockColour+"}");
-        }
-
-        document.write("</style>");
-
-        var chain = new Chain();
-        var date = new Date();
-        var block1 = new Block("b1",5,date, "u1", "Hello", "fdsdfs");
-        var block2 = new Block("b2",6,date, "u3", "Block 2 Message!", "ejdifen");
-        addBlock(chain, block1);
-        addBlock(chain, block2);
-
-        alert(""+getChainBlockMessage(chain, 1));
+        // document.write("<style>");
+        //
+        // var i;
+        // for(i=1; i<6; i++){
+        //     var client = new User();
+        //     document.write("#client"+i+"{top:"+ client.coY+"px; left:"+client.coX+"%}");
+        //     document.write("\n");
+        //     document.write("#client"+i+" .n2{background-color: "+ client.blockColour+"}");
+        // }
+        //
+        // document.write("</style>");
+        //
+        // var chain = new Chain();
+        // var date = new Date();
+        // var block1 = new Block("b1",5,date, "u1", "Hello", "fdsdfs");
+        // var block2 = new Block("b2",6,date, "u3", "Block 2 Message!", "ejdifen");
+        // addBlock(chain, block1);
+        // addBlock(chain, block2);
+        //
+        // alert(""+getChainBlockMessage(chain, 0));
 
     </script>
 
     <!--TESTING AREA-->
 
-    <div class="map">
+    <ul id="map">
 
         <!-- Pulse animation test div-->
-        <div id= "client1" class="n"><div class="n1"><div class="n2 mining"></div></div></div>
-        <div id= "client2" class="n"><div class="n1"><div class="n2 mining"></div></div></div>
-        <div id= "client3" class="n"><div class="n1"><div class="n2 mining"></div></div></div>
-        <div id= "client4" class="n"><div class="n1"><div class="n2"></div></div></div>
-        <div id= "client5" class="n"><div class="n1"><div class="n2"></div></div></div>
+        <!--</li><div id= 'client1' class='n'><div class='n1'><div class='n2 mining'></div></div></div></li>-->
+        <!--<li><div id= "client2" class="n"><div class="n1"><div class="n2 mining"></div></div></div></li>-->
+        <!--<li><div id= "client3" class="n"><div class="n1"><div class="n2 mining"></div></div></div></li>-->
+        <!--<li><div id= "client4" class="n"><div class="n1"><div class="n2"></div></div></div></li>-->
+        <!--<li><div id= "client5" class="n"><div class="n1"><div class="n2"></div></div></div></li>-->
 
-    </div>
+    </ul>
 
     <div class="message tabbox">
         <input class="tabs" id="tab1" type="radio" name="tabs" checked>
@@ -379,6 +373,7 @@
             }
         });
     </script>
+
 
 </body>
 </html>
