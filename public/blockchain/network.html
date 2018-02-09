@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/tabs.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/map.css">
+    <script type="text/javascript" src="../javascripts/FirebaseInitialisation.js"></script>
     <script type="text/javascript" src="../javascripts/Client.js"></script>
     <script type="text/javascript" src="../javascripts/Block.js"></script>
     <script type="text/javascript" src="../javascripts/Message.js"></script>
@@ -42,6 +43,7 @@
 
 </head>
 <body>
+    <h1 id="testHeader" style="color: white">Test Header</h1>
     <div class="logo"></div>
 
     <!--TESTING AREA-->
@@ -326,19 +328,26 @@
 
 
     <script>
-        // Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyBERESHwl8m2_KLNX3MujVltBbhdQpoOqI",
-            authDomain: "blockchain-visualisation-app.firebaseapp.com",
-            databaseURL: "https://blockchain-visualisation-app.firebaseio.com",
-            projectId: "blockchain-visualisation-app",
-            storageBucket: "blockchain-visualisation-app.appspot.com",
-            messagingSenderId: "198246009981"
-        };
-        firebase.initializeApp(config);
-    </script>
 
-    <script>
+        //Initialise Firebase
+        firebase.initializeApp(config);
+        
+        Bot();
+        // var bigOne = document.getElementById('bigOne');
+        // var dbRef = firebase.database().ref().child('text');
+        // dbRef.on('value', snap => bigOne.innerText = snap.val());
+
+
+        // const usersRef = db.doc("users/JOHN1");
+        // const tes = "johnika";
+        // usersRef.set({
+        //     name: tes
+        // }).then(function () {
+        //     console.log("Name Updated");
+        // }).catch(function(error){
+        //     console.log("Got Error: ", error);
+        // });
+
         //update the message
         function updateMessage() {
             var text = document.getElementById('sampleText').value;
@@ -366,10 +375,10 @@
             try {
                 let app = firebase.app();
                 let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-                document.getElementById('load').innerHTML = 'Firebase SDK loaded with ${features.join(', ')}';
+                document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
             } catch (e) {
                 console.error(e);
-                document.getElementById('load').innerHTML = 'FirebaseSDK Not Loaded';
+                document.getElementById('load').innerHTML = '!!  FIREBASE BROKEN  !!';
             }
         });
     </script>
