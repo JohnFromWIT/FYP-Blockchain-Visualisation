@@ -4,18 +4,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+    <script type="text/javascript" src="javascripts/FirebaseInitialisation.js"></script>
     <script type="text/javascript" src="javascripts/Client.js"></script>
       <title>Welcome to Firebase Hosting</title>
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/4.6.2/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/4.6.2/firebase-auth.js"></script>
-    <script defer src="/__/firebase/4.6.2/firebase-database.js"></script>
-    <script defer src="/__/firebase/4.6.2/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/4.6.2/firebase-storage.js"></script>
-    <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
+    <!--&lt;!&ndash; update the version number as needed &ndash;&gt;-->
+    <!--<script defer src="/__/firebase/4.6.2/firebase-app.js"></script>-->
+    <!--&lt;!&ndash; include only the Firebase features as you need &ndash;&gt;-->
+    <!--<script defer src="/__/firebase/4.6.2/firebase-auth.js"></script>-->
+    <!--<script defer src="/__/firebase/4.6.2/firebase-database.js"></script>-->
+    <!--<script defer src="/__/firebase/4.6.2/firebase-messaging.js"></script>-->
+    <!--<script defer src="/__/firebase/4.6.2/firebase-storage.js"></script>-->
+    <!--&lt;!&ndash; initialize the SDK after all desired features are loaded &ndash;&gt;-->
+    <!--<script defer src="/__/firebase/init.js"></script>-->
 
     <style media="screen">
 
@@ -55,17 +56,10 @@
         </div>
       </main>
 
-    <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-firestore.js"></script>
     <script>
-        // Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyBERESHwl8m2_KLNX3MujVltBbhdQpoOqI",
-            authDomain: "blockchain-visualisation-app.firebaseapp.com",
-            databaseURL: "https://blockchain-visualisation-app.firebaseio.com",
-            projectId: "blockchain-visualisation-app",
-            storageBucket: "blockchain-visualisation-app.appspot.com",
-            messagingSenderId: "198246009981"
-        };
+
         firebase.initializeApp(config);
     </script>
     <script>
