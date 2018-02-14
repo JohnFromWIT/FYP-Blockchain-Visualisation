@@ -1,179 +1,125 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
     <script type="text/javascript" src="javascripts/FirebaseInitialisation.js"></script>
     <script type="text/javascript" src="javascripts/Client.js"></script>
-      <title>Welcome to Firebase Hosting</title>
 
-    <!--&lt;!&ndash; update the version number as needed &ndash;&gt;-->
-    <!--<script defer src="/__/firebase/4.6.2/firebase-app.js"></script>-->
-    <!--&lt;!&ndash; include only the Firebase features as you need &ndash;&gt;-->
-    <!--<script defer src="/__/firebase/4.6.2/firebase-auth.js"></script>-->
-    <!--<script defer src="/__/firebase/4.6.2/firebase-database.js"></script>-->
-    <!--<script defer src="/__/firebase/4.6.2/firebase-messaging.js"></script>-->
-    <!--<script defer src="/__/firebase/4.6.2/firebase-storage.js"></script>-->
-    <!--&lt;!&ndash; initialize the SDK after all desired features are loaded &ndash;&gt;-->
-    <!--<script defer src="/__/firebase/init.js"></script>-->
+    <!--Firebase Libraries and Init with config-->
+    <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase-database.js"></script>
+    <script>firebase.initializeApp(config);</script>
 
-    <style media="screen">
+    <title>Visual-Chain</title>
 
-    </style>
-  </head>
-  <body>
+</head>
+<body>
 
+<!--Logo Elements-->
+<div class="logo-container" >
+    <img id="logo-tall" src="https://i.imgur.com/sb4fvdm.png"/>
+    <img id="logo-wide" src="https://i.imgur.com/vxaU676.png"/>
+</div>
 
+<!--Login Box Elements-->
+<div class="message loginbox">
+    <h2 id="welcome">Welcome</h2>
+    <a id="blockchain_link" target="_blank" href="blockchain/network.html">Visit Blockchain</a>
+    <!-- Button that handles sign-in/sign-out -->
+    <button disabled class="centered mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in">Sign in with Google</button>
+    <pre><code id="quickstart-display-name"> </code></pre>
+</div>
 
+<!--Text Under Login Box - Extra Details-->
+<p>Blockchain Visualisation Web App - 20056594</p>
+<p id="github"><a target="_blank" href="https://github.com/JohnFromWIT/Blockchain-Visualisation-Web-App">Github Repository</a></p>
+<p id="load">Firebase SDK Loading&hellip;</p>
 
-  <div class="logo"></div>
-
-
-  <div class="message loginbox">
-      <h2 id="welcome">Welcome</h2>
-      <a id="blockchain_link" target="_blank" href="blockchain/network.html">Visit Blockchain</a>
-      <!-- Button that handles sign-in/sign-out -->
-      <button disabled class="centered mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in">Sign in with Google</button>
-      <pre><code id="quickstart-display-name"> </code></pre>
-    </div>
-    <p>Blockchain Visualisation Web App - 20056594</p>
-    <p id="github"><a target="_blank" href="https://github.com/JohnFromWIT/Blockchain-Visualisation-Web-App">Github Repository</a></p>
-    <p id="load">Firebase SDK Loading&hellip;</p>
-
-    <div id="messageSnackbar">Text updated across all devices viewing this page</div>
-
-    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+<!--Snack Bar - Should be hidden-->
+<div id="messageSnackbar">Text updated across all devices viewing this page</div>
 
 
-      <main class="mdl-layout__content mdl-color--grey-100">
-        <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
+<script>
+    // Signin Function
+    function toggleSignIn() {
+        if (!firebase.auth().currentUser) {
+            var provider = new firebase.auth.GoogleAuthProvider();
+            provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 
+            firebase.auth().signInWithPopup(provider).then(function(result) {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                var token = result.credential.accessToken;
+                var user = result.user;
+            }).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                var email = error.email;
+                var credential = error.credential;
+                if (errorCode === 'auth/account-exists-with-different-credential') {
+                    alert('You have already signed up with a different auth provider for that email.');
 
-              <!-- Container where we'll display the user details -->
-              <div class="quickstart-user-details-container">
-          </div>
-        </div>
-      </main>
-
-      <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-firestore.js"></script>
-    <script>
-
-        firebase.initializeApp(config);
-    </script>
-    <script>
-        // [START buttoncallback]
-        function toggleSignIn() {
-            if (!firebase.auth().currentUser) {
-                // [START createprovider]
-                var provider = new firebase.auth.GoogleAuthProvider();
-                // [END createprovider]
-                // [START addscopes]
-                provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-                // [END addscopes]
-                // [START signin]
-                firebase.auth().signInWithPopup(provider).then(function(result) {
-                    // This gives you a Google Access Token. You can use it to access the Google API.
-                    var token = result.credential.accessToken;
-                    // The signed-in user info.
-                    var user = result.user;
-                    // [START_EXCLUDE]
-                    // [END_EXCLUDE]
-                }).catch(function(error) {
-                    // Handle Errors here.
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    // The email of the user's account used.
-                    var email = error.email;
-                    // The firebase.auth.AuthCredential type that was used.
-                    var credential = error.credential;
-                    // [START_EXCLUDE]
-                    if (errorCode === 'auth/account-exists-with-different-credential') {
-                        alert('You have already signed up with a different auth provider for that email.');
-                        // If you are using multiple auth providers on your app you should handle linking
-                        // the user's accounts here.
-                    } else {
-                        console.error(error);
-                    }
-                    // [END_EXCLUDE]
-                });
-                // [END signin]
-            } else {
-                // [START signout]
-                firebase.auth().signOut();
-                // [END signout]
-            }
-            // [START_EXCLUDE]
-            document.getElementById('quickstart-sign-in').disabled = true;
-            // [END_EXCLUDE]
-        }
-        // [END buttoncallback]
-        /**
-         * initApp handles setting up UI event listeners and registering Firebase auth listeners:
-         *  - firebase.auth().onAuthStateChanged: This listener is called when the user is signed in or
-         *    out, and that is where we update the UI.
-         */
-        function initApp() {
-            // Listening for auth state changes.
-            // [START authstatelistener]
-            firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    // User is signed in.
-                    var displayName = user.displayName;
-                    // [START_EXCLUDE]
-
-                    document.getElementById('welcome').textContent = "Test Complete";
-                    document.getElementById('quickstart-sign-in').textContent = 'Sign out';
-                    document.getElementById('quickstart-display-name').textContent = displayName;
-                    document.getElementById('blockchain_link').textContent = 'Visit Blockchain';
-
-                    // [END_EXCLUDE]
                 } else {
-                    // User is signed out.
-                    // [START_EXCLUDE]
-                    document.getElementById('quickstart-sign-in').textContent = 'Sign in with Google';
-                    document.getElementById('quickstart-display-name').textContent = ' ';
-                    document.getElementById('blockchain_link').textContent = 'Log in to visit';
-
-                    // [END_EXCLUDE]
+                    console.error(error);
                 }
-                // [START_EXCLUDE]
-                document.getElementById('quickstart-sign-in').disabled = false;
-                // [END_EXCLUDE]
             });
-            // [END authstatelistener]
-            document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
+        } else {
+            firebase.auth().signOut();
         }
-        window.onload = function() {
-            initApp();
-        };
+        document.getElementById('quickstart-sign-in').disabled = true;
+    }
 
-    </script>
+    /**
+     * initApp handles setting up UI event listeners and registering Firebase auth listeners:
+     *  - firebase.auth().onAuthStateChanged: This listener is called when the user is signed in or
+     *    out, and that is where we update the UI.
+     */
+    function initApp() {
+        // Listening for auth state changes. Is user signed in?
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                // User is signed in.
+                var displayName = user.displayName;
 
+                document.getElementById('welcome').textContent = "Test Complete";
+                document.getElementById('quickstart-sign-in').textContent = 'Sign out';
+                document.getElementById('quickstart-display-name').textContent = displayName;
+                document.getElementById('blockchain_link').textContent = 'Visit Blockchain';
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+            } else {
+                // User is signed out.
+                document.getElementById('quickstart-sign-in').textContent = 'Sign in with Google';
+                document.getElementById('quickstart-display-name').textContent = ' ';
+                document.getElementById('blockchain_link').textContent = 'Log in to visit';
+
+            }
+            document.getElementById('quickstart-sign-in').disabled = false;
+        });
+        document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
+    }
+    window.onload = function() {
+        initApp();
+    };
+
+</script>
+<script>
+
+    //Run Firebase check when page loads
+    document.addEventListener('DOMContentLoaded', function() {
 
         try {
-          let app = firebase.app();
-          let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-          document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
+            let app = firebase.app();
+            let features = ['auth', 'database', 'messaging', 'storage', 'firestore'].filter(feature => typeof app[feature] === 'function');
+            document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
         } catch (e) {
-          console.error(e);
-          document.getElementById('load').innerHTML = 'FirebaseSDK Not Loaded';
+            console.error(e);
+            document.getElementById('load').innerHTML = 'FirebaseSDK Not Loaded';
         }
-      });
-    </script>
+    });
+</script>
 
-  </body>
+</body>
 </html>

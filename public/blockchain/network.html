@@ -6,86 +6,36 @@
     <link rel="stylesheet" type="text/css" href="../stylesheets/tabs.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/map.css">
     <script type="text/javascript" src="../javascripts/FirebaseInitialisation.js"></script>
+    <script type="text/javascript" src="../javascripts/Firebase.js"></script>
     <script type="text/javascript" src="../javascripts/Client.js"></script>
     <script type="text/javascript" src="../javascripts/Block.js"></script>
     <script type="text/javascript" src="../javascripts/Message.js"></script>
+
+
+    <!--Firebase Libraries and Init with config-->
     <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase-database.js"></script>
+    <script>firebase.initializeApp(config);</script>
 
     <title>Blockchain</title>
 
-
-    <!--Consider deleting commented code below here-->
-
-    <!--<style>-->
-    <!--/* Clients position and colors on map*/-->
-    <!--/* IDs */-->
-    <!--#client1{top:70px; left:50%}-->
-    <!--#client2{top:20px; left:20%}-->
-    <!--#client3{top:40px; left:70%}-->
-    <!--#client4{top:0px; left:40%}-->
-    <!--#client5{top:0px; left:20%}-->
-
-    <!--#client1 .n2{background-color: #ffa100}-->
-    <!--#client1 .n2{background-color: #ffa100}-->
-    <!--#client1 .n2{background-color: #ffa100}-->
-    <!--#client1 .n2{background-color: #ffa100}-->
-    <!--#client1 .n2{background-color: #ffa100}-->
-
-    <!--#m1 .m_progress{width: 100%;}-->
-
-    <!--#b1{-->
-    <!--background: #00B7FF;-->
-    <!--}-->
-    <!--</style>-->
-
-
 </head>
 <body>
+<!--Headeer for Testing-->
 <h1 id="testHeader" style="color: white">Test Header</h1>
-<div class="logo"></div>
 
-<!--TESTING AREA-->
+<!--Logo Elements-->
+<div class="logo-container" >
+    <img id="logo-tall" src="https://i.imgur.com/sb4fvdm.png"/>
+    <img id="logo-wide" src="https://i.imgur.com/vxaU676.png"/>
+</div>
+<!--Client map-->
+<ul id="map"></ul>
 
-<script>
-
-    // document.write("<style>");
-    //
-    // var i;
-    // for(i=1; i<6; i++){
-    //     var client = new User();
-    //     document.write("#client"+i+"{top:"+ client.coY+"px; left:"+client.coX+"%}");
-    //     document.write("\n");
-    //     document.write("#client"+i+" .n2{background-color: "+ client.blockColour+"}");
-    // }
-    //
-    // document.write("</style>");
-    //
-    // var chain = new Chain();
-    // var date = new Date();
-    // var block1 = new Block("b1",5,date, "u1", "Hello", "fdsdfs");
-    // var block2 = new Block("b2",6,date, "u3", "Block 2 Message!", "ejdifen");
-    // addBlock(chain, block1);
-    // addBlock(chain, block2);
-    //
-    // alert(""+getChainBlockMessage(chain, 0));
-
-</script>
-
-<!--TESTING AREA-->
-
-<ul id="map">
-
-    <!-- Pulse animation test div-->
-    <!--</li><div id= 'client1' class='n'><div class='n1'><div class='n2 mining'></div></div></div></li>-->
-    <!--<li><div id= "client2" class="n"><div class="n1"><div class="n2 mining"></div></div></div></li>-->
-    <!--<li><div id= "client3" class="n"><div class="n1"><div class="n2 mining"></div></div></div></li>-->
-    <!--<li><div id= "client4" class="n"><div class="n1"><div class="n2"></div></div></div></li>-->
-    <!--<li><div id= "client5" class="n"><div class="n1"><div class="n2"></div></div></div></li>-->
-
-</ul>
 
 <div class="message tabbox">
+    <!--Tab Headers-->
     <input class="tabs" id="tab1" type="radio" name="tabs" checked>
     <label class="tab" for="tab1">Messages</label>
 
@@ -98,6 +48,7 @@
     <input class="tabs" id="tab4" type="radio" name="tabs">
     <label class="tab" for="tab4">Mining</label>
 
+    <!--Message Tab-->
     <section id="content1">
         <div class = "tab_contents">
             <div class="tab_header">
@@ -188,16 +139,9 @@
             </div>
 
         </div>
-        <!--
-        <h1 id="msg">Successful Prototype</h1>
-        <h1 id="msg_upper">UPPERCASE</h1>
-        <input id="sampleText" type="text" name="fname" placeholder="Enter a message.." value="">
-        <!--<button id="btn_Update" onclick="updateMessage()">Try it</button>-->
-        <!--
-        <input type="button" id="btn_Update" value="Try It" onclick="updateMessage();" />
-        -->
     </section>
 
+    <!--Blocks Tab-->
     <section id="content2">
         <div class = "tab_contents">
             <div class="tab_header">
@@ -231,6 +175,7 @@
         </div>
     </section>
 
+    <!--Clients Header-->
     <section id="content3">
         <div class = "tab_contents">
             <div class="tab_header">
@@ -241,24 +186,25 @@
 
             <ul id="tabs_client_list" class="tab_items_list">
 
-                <li id="c2" class="item_portion">
-                    <div class="c_leftsection">
-                        <div class="c_block"></div>
-                    </div>
-                    <div class="c_midsection">First Entry - Needs Removing</div>
-                    <div class="c_rightsection">
-                        <label class="switch">
-                            <input type="checkbox" checked>
-                            <span class="slider round"></span>
-                        </label>
-                        <button class="c_remove" id="c_btn_remove" onclick="removeBot()">-</button>
-                    </div>
-                </li>
+                <!--<li id="c2" class="item_portion">-->
+                    <!--<div class="c_leftsection">-->
+                        <!--<div class="c_block"></div>-->
+                    <!--</div>-->
+                    <!--<div class="c_midsection">First Entry - Needs Removing</div>-->
+                    <!--<div class="c_rightsection">-->
+                        <!--<label class="switch">-->
+                            <!--<input type="checkbox" checked>-->
+                            <!--<span class="slider round"></span>-->
+                        <!--</label>-->
+                        <!--<button class="c_remove" id="c_btn_remove" onclick="removeBot()">-</button>-->
+                    <!--</div>-->
+                <!--</li>-->
 
             </ul>
         </div>
     </section>
 
+    <!--Mining Header-->
     <section id="content4">
         <div class = "tab_contents">
             <div class="tab_header">
@@ -311,44 +257,43 @@
     </section>
 
 </div>
+
 <p id="load">Firebase SDK Loading&hellip;</p>
 
-<div class="messageSnackbar">Text updated across all devices viewing this page</div>
-
-
+<div id="messageSnackbar" class="messageSnackbar">Text updated across all devices viewing this page</div>
 
 <script>
 
-    firebase.initializeApp(config);
+    // firebase.initializeApp(config);
     // var db = firebase.firestore();
     // const usersRef = db.collection("users");
 
-    //Create Local User
+    //   ---- Error - Code below causes issues ----
+    //    --- K timeout                         ---
 
-    Bot();
-    Bot();
-
-    // var bigOne = document.getElementById('bigOne');
-    // var dbRef = firebase.database().ref().child('text');
-    // dbRef.on('value', snap => bigOne.innerText = snap.val());
-
-
+    // usersRef.get().then(function(querySnapshot) {
+    //     querySnapshot.forEach(function(doc) {
+    //         const user = new User();
+    //         updateUser(user,doc.id, doc.data("name"), doc.data("CoX"), doc.data("CoY"), doc.data("blockColour"));
+    //         Node(user);
+    //         // doc.data() is never undefined for query doc snapshots
+    //         console.log("Retrieved User: "+doc.id+" -> "+doc.data("name"));
+    //     });
+    // });
 
     //update the message
     function updateMessage() {
         var text = document.getElementById('sampleText').value;
-        mRef.set(text);
+        dbRef.set(text);
         document.getElementById('sampleText').value = "";
-        var snackbar = document.getElementById("messageSnackbar")
+        var snackbar = document.getElementById("messageSnackbar");
         snackbar.className = "show";
         setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
-
     }
 </script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
         // // The Firebase SDK is initialized and available here!
         //
         // firebase.auth().onAuthStateChanged(user => { });
@@ -360,7 +305,7 @@
 
         try {
             let app = firebase.app();
-            let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+            let features = ['auth', 'database', 'messaging', 'storage', 'firestore'].filter(feature => typeof app[feature] === 'function');
             document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
         } catch (e) {
             console.error(e);
@@ -368,7 +313,6 @@
         }
     });
 </script>
-
 
 </body>
 </html>
