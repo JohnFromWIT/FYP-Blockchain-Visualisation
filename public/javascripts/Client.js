@@ -1,3 +1,4 @@
+
 //Create a new user model with random X Y positions
 function User () {
     this.userID = "";
@@ -5,7 +6,13 @@ function User () {
     this.coX = Math.floor(Math.random()*100);
     this.coY = Math.floor(Math.random()*100);
     this.blockColour = '#'+Math.floor(Math.random()*16777215).toString(16);
+    this.oj = function () {
+        var oj = new Object({name: this.name, coX: this.coX, coY: this.coY, blockColour: this.blockColour});
+        return oj;
+    }
 }
+
+
 
 //Update existing user model
 function updateUser(user, userID, name, CoX, CoY, blockColour){
@@ -21,7 +28,16 @@ function Bot() {
     var client = new User();
     client.userID = "" + Math.floor(Math.random() * 100);
     client.name = "Bot" + client.userID;
+    usersRef.add({
+        'name':client.name,
+        'CoX':client.coX,
+        'CoY':client.coY,
+        'blockColour':client.blockColour
+    });
+
     Node(client);
+
+
 }
 
 //A client s visual representation on the network

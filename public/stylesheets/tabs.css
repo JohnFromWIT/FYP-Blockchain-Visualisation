@@ -2,7 +2,7 @@
     background: rgba(21,11,21,0.6); margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px;
 }
 
-.tab_items_list{list-style: none}
+.tab_items_list{list-style: none; padding: 0;}
 
 section {
     display: none;
