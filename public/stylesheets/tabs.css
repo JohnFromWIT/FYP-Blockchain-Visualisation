@@ -1,5 +1,5 @@
 .tabbox{
-    background: rgba(21,11,21,0.6); margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px;
+    background: rgba(21,11,21,0.6); margin: auto; border-radius: 3px;
 }
 
 .tab_items_list{list-style: none; padding: 0;}
@@ -17,7 +17,7 @@ input.tabs {
 label.tab {
     display: inline-block;
     margin: 0 0 -1px;
-    padding: 15px 25px;
+    padding: 10px 25px;
     font-weight: 600;
     text-align: center;
     color: #bbb;
@@ -203,20 +203,41 @@ input:checked + label.tab {
     width:25px;
 }
 
+.c_remove{
+    height: 25px;
+    width: 25px;
+    background-color: red;
+    border: 1px solid #216;
+}
 .c_leftsection{
-    background: blue;
     float:left;
     width:120px;
     height:100%;
 }
 
+.c_midsection {
+    width: 125px;
+    float: left;
+    font-size: 25px;
+}
+
+.c_rightsection {
+    width: 60px;
+    float: right;
+}
+
 .c_block{
-    background: #00B7FF;
     border: 2px solid white;
     border-radius: 5px;
     width: 50px;
     height:50px;
     margin: 10px auto;
+}
+
+#tabs_client_list {
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 250px;
 }
 
 /*START --- Slider --- START*/

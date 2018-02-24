@@ -29,8 +29,6 @@
 
 </head>
 <body>
-<!--Headeer for Testing-->
-<h1 id="testHeader" style="color: white">Test Header</h1>
 
 <!--Logo Elements-->
 <div class="logo-container" >
@@ -297,11 +295,12 @@
         querySnapshot.forEach((doc) => {
             let user = new User();
             let dbUser = doc.data();
-            user.id = dbUser.id;
+            user.userID = doc.id;
             user.name = dbUser.name;
             user.coX = dbUser.CoX;
             user.coY = dbUser.CoY;
             user.blockColour = dbUser.blockColour;
+            user.bot = dbUser.bot;
 
             Node(user);
             console.log(user.coY);
@@ -313,7 +312,12 @@
         var text = document.getElementById('sampleText').value;
         dbRef.set(text);
         document.getElementById('sampleText').value = "";
+        snackbar("Message Updated")
+    }
+
+    function snackbar(text){
         var snackbar = document.getElementById("messageSnackbar");
+        snackbar.innerText = text;
         snackbar.className = "show";
         setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
     }

@@ -10,17 +10,19 @@ function User () {
         var oj = new Object({name: this.name, coX: this.coX, coY: this.coY, blockColour: this.blockColour});
         return oj;
     }
+    this.bot = 0;
 }
 
 
 
 //Update existing user model
-function updateUser(user, userID, name, CoX, CoY, blockColour){
+function updateUser(user, userID, name, CoX, CoY, blockColour, bot){
     user.userID = userID;
     user.name = name;
     user.coX = CoX;
     user.coY = CoY;
     user.blockColour = blockColour;
+    user.bot = bot;
 }
 
 //Create a new user model bot and add to the network
@@ -28,14 +30,17 @@ function Bot() {
     var client = new User();
     client.userID = "" + Math.floor(Math.random() * 100);
     client.name = "Bot" + client.userID;
+    client.bot = 1;
     usersRef.add({
         'name':client.name,
         'CoX':client.coX,
         'CoY':client.coY,
-        'blockColour':client.blockColour
+        'blockColour':client.blockColour,
+        'bot':client.bot
     });
 
     Node(client);
+    snackbar(client.name + " added");
 
 
 }
@@ -101,11 +106,11 @@ function clientListEntry(client){
     divd.classList.add("c_rightsection");
 
     //Functionals classes
+    divb.style.background = client.blockColour;
     labela.classList.add("switch");
     inputa.checked = true;
     spana.classList.add("slider");
     spana.classList.add("round");
-    btna.classList.add("c_remove");
 
 
     //Add to document
@@ -117,5 +122,31 @@ function clientListEntry(client){
     divd.appendChild(labela);
     labela.appendChild(inputa);
     inputa.appendChild(spana);
-    divd.appendChild(btna);
+
+    if(client.bot == 1) {
+        btna.setAttribute("data-parent_id", client.userID);
+        btna.classList.add("c_remove");
+        btna.innerText = "-";
+        btna.addEventListener("click", function () {
+            removeBot(btna.getAttribute("data-parent_id"));
+        }, false);
+        divd.appendChild(btna);
+    }
+
+}
+
+function removeBot(botID){
+    usersRef.doc(botID).delete().then(function() {
+        snackbar("Bot Removed");
+    }).catch(function(error) {
+        snackbar("Error with Bot Removal");
+    });
+
+    var entry = document.getElementById(botID);
+    entry.parentNode.removeChild(entry);
+    entry = document.getElementById(botID);
+    entry.parentNode.removeChild(entry);
+
+
+
 }
