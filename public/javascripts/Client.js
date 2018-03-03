@@ -145,7 +145,7 @@ function clientListEntry(client){
     //Functionals classes
     divb.style.background = client.blockColour;
     labela.classList.add("switch");
-    inputa.checked = true;
+    inputa.type = "checkbox";
     spana.classList.add("slider");
     spana.classList.add("round");
 
