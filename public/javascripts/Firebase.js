@@ -1,13 +1,15 @@
-//passed in user is added to firestore
-function addUserToNetwork(user) {
-
-    usersRef.doc(user.id).set({
+//Update firebase with local data
+// function addUserToNetwork(user) {
+function updateFireStore(user) {
+    usersRef.doc(user.userID).set({
         name: user.name,
-        CoX: user.CoX,
-        CoY: user.CoY,
-        blockColour: user.blockColour
+        coX: user.coX,
+        coY: user.coY,
+        blockColour: user.blockColour,
+        bot: user.bot,
+        mining: user.mining
     }).then(function () {
-        console.log("User Added to database");
+        console.log("Database Updated");
     }).catch(function (error) {
         console.log("Got Error: ", error);
     });
@@ -18,10 +20,12 @@ function populateMapFromFirebase(){
     usersRef.get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             const user = new User();
-            updateUser(user,doc.id, doc.data("name"), doc.data("CoX"), doc.data("CoY"), doc.data("blockColour"));
+            // updateUser(user,doc.id, doc.data("name"), doc.data("CoX"), doc.data("CoY"), doc.data("blockColour"), doc.data("bot"), doc.data("mining"));
+            updateUser(user);
             Node(user);
             // doc.data() is never undefined for query doc snapshots
             console.log("Retrieved User: "+doc.id+" -> "+doc.data("name"));
         });
     });
 }
+

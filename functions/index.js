@@ -20,3 +20,4 @@ const uppercase = original.toUpperCase();
 // Setting an "uppercase" sibling in the Realtime Database returns a Promise.
 return event.data.ref.parent.child('uppercase').set(uppercase);
 });
+

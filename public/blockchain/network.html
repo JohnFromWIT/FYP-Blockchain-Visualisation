@@ -16,13 +16,14 @@
     <script type="text/javascript" src="../javascripts/FirebaseInitialisation.js"></script>
     <script type="text/javascript" src="../javascripts/Firebase.js"></script>
     <script type="text/javascript" src="../javascripts/Client.js"></script>
+    <script type="text/javascript" src="../javascripts/Mine.js"></script>
     <script type="text/javascript" src="../javascripts/Block.js"></script>
     <script type="text/javascript" src="../javascripts/Message.js"></script>
 
 
 
     <script>
-
+        var users = [];
     </script>
 
     <title>Blockchain</title>
@@ -271,39 +272,20 @@
 
     var db = firebase.firestore();
 
-    // var user = new User();
-    // user.name = "John";
-    // usersRef.add({
-    //     'name':user.name,
-    //     'CoX':user.coX,
-    //     'CoY':user.coY,
-    //     'blockColour':user.blockColour
-    // });
-
-    // usersRef.get().then(function(querySnapshot) {
-    //     querySnapshot.forEach(function(doc) {
-    //         const user = new User();
-    //         // updateUser(user,doc.id, doc.data("name"), doc.data("CoX"), doc.data("CoY"), doc.data("blockColour"));
-    //         // user.name = doc.data("name");
-    //         // Node(user);
-    //         // // doc.data() is never undefined for query doc snapshots
-    //         console.log("Retrieved User: "+doc.id+" -> "+doc.data("name"));
-    //     });
-    // });
-
     db.collection("users").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
             let user = new User();
             let dbUser = doc.data();
             user.userID = doc.id;
             user.name = dbUser.name;
-            user.coX = dbUser.CoX;
-            user.coY = dbUser.CoY;
+            user.coX = dbUser.coX;
+            user.coY = dbUser.coY;
             user.blockColour = dbUser.blockColour;
             user.bot = dbUser.bot;
+            user.mining = dbUser.mining;
 
+            addUser(user);
             Node(user);
-            console.log(user.coY);
         });
     });
 
@@ -312,7 +294,7 @@
         var text = document.getElementById('sampleText').value;
         dbRef.set(text);
         document.getElementById('sampleText').value = "";
-        snackbar("Message Updated")
+        snackbar("Message Updated");
     }
 
     function snackbar(text){

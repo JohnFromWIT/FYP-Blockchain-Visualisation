@@ -6,23 +6,51 @@ function User () {
     this.coX = Math.floor(Math.random()*100);
     this.coY = Math.floor(Math.random()*100);
     this.blockColour = '#'+Math.floor(Math.random()*16777215).toString(16);
+    this.bot = 0;
+    this.mining = false;
     this.oj = function () {
-        var oj = new Object({name: this.name, coX: this.coX, coY: this.coY, blockColour: this.blockColour});
+        var oj = new Object({name: this.name, coX: this.coX, coY: this.coY, blockColour: this.blockColour, mining: this.mining});
         return oj;
     }
-    this.bot = 0;
+}
+
+function addUser(user){
+    users.push(user);
+}
+
+function removeUser(user){
+   var resultList = users.filter(function(listEntries) {
+        return listEntries.userID !== user.userID;
+    });
+   users = resultList;
+}
+
+function findUser(id){
+    for (var i = 0; i < users.length; i++) {
+        if (users[i]["userID"] === id) {
+            return users[i];
+        }
+    }
+    return null;
 }
 
 
-
 //Update existing user model
-function updateUser(user, userID, name, CoX, CoY, blockColour, bot){
-    user.userID = userID;
-    user.name = name;
-    user.coX = CoX;
-    user.coY = CoY;
-    user.blockColour = blockColour;
-    user.bot = bot;
+// function updateUser(user, userID, name, CoX, CoY, blockColour, bot, mining){
+function updateUser(user){
+    for (var i = 0; i < users.length; i++) {
+        if (users[i]["userID"] === user.userID) {
+
+            users[i].userID = user.userID;
+            users[i].name = user.name;
+            users[i].coX = user.coX;
+            users[i].coY = user.coY;
+            users[i].blockColour = user.blockColour;
+            users[i].bot = user.bot;
+            users[i].mining = user.mining;
+        }
+    }
+    updateFireStore(user);
 }
 
 //Create a new user model bot and add to the network
@@ -33,15 +61,18 @@ function Bot() {
     client.bot = 1;
     usersRef.add({
         'name':client.name,
-        'CoX':client.coX,
-        'CoY':client.coY,
+        'coX':client.coX,
+        'coY':client.coY,
         'blockColour':client.blockColour,
-        'bot':client.bot
+        'bot':client.bot,
+        'mining': client.mining
+    }).then(ref => {
+        console.log('Added document with ID: ', ref.id);
+        client.userID = ref.id;
+        addUser(client);
+        Node(client);
+        snackbar(client.name + " added");
     });
-
-    Node(client);
-    snackbar(client.name + " added");
-
 
 }
 
@@ -65,7 +96,7 @@ function clientMapEntry(client){
     div1.innerText = client.name;
     div2.classList.add("n1");
     div3.classList.add("n2");
-    div3.classList.add("mining");
+
 
     //CSS Elements - Position and colour
     div1.style.top = "" + client.coY + "px";
@@ -77,6 +108,12 @@ function clientMapEntry(client){
     newclient.appendChild(div1);
     div1.appendChild(div2);
     div2.appendChild(div3);
+
+    if(client.mining === true) {
+        div3.classList.add("mining");
+    }
+    console.log(client.mining);
+
 }
 
 //Tabs Client List - Add client entry to html and css
@@ -120,33 +157,38 @@ function clientListEntry(client){
     clientEntry.appendChild(divc);
     clientEntry.appendChild(divd);
     divd.appendChild(labela);
-    labela.appendChild(inputa);
-    inputa.appendChild(spana);
+
 
     if(client.bot == 1) {
         btna.setAttribute("data-parent_id", client.userID);
         btna.classList.add("c_remove");
         btna.innerText = "-";
         btna.addEventListener("click", function () {
-            removeBot(btna.getAttribute("data-parent_id"));
+            var user = findUser(btna.getAttribute("data-parent_id"));
+            removeBot(user);
         }, false);
+        labela.addEventListener("click", function(){
+            var user = findUser(btna.getAttribute("data-parent_id"));
+            mineOnOff(user);
+        });
         divd.appendChild(btna);
+        labela.appendChild(inputa);
+        inputa.appendChild(spana);
     }
 
 }
 
-function removeBot(botID){
-    usersRef.doc(botID).delete().then(function() {
-        snackbar("Bot Removed");
+function removeBot(user){
+    usersRef.doc(user.userID).delete().then(function() {
+        snackbar(""+user.name+" Removed");
     }).catch(function(error) {
         snackbar("Error with Bot Removal");
     });
 
-    var entry = document.getElementById(botID);
+    var entry = document.getElementById(user.userID);
     entry.parentNode.removeChild(entry);
-    entry = document.getElementById(botID);
+    entry = document.getElementById(user.userID);
     entry.parentNode.removeChild(entry);
 
-
-
+    removeUser(user);
 }
