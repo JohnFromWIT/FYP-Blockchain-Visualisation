@@ -6,6 +6,11 @@ div.logo-container{position:relative; margin: 30px auto 16px; width:327px; heigh
 #logo-tall{display: block}
 #logo-wide{display: none}
 
+/*Headings*/
+.title{
+  font-weight: bold;
+}
+
 /*Message Elements*/
 .message { background: white; max-width: 750px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
 .message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }

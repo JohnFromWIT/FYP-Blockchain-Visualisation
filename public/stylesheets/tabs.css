@@ -57,7 +57,7 @@ input:checked + label.tab {
     height: 300px;
     width:100%;
     margin:auto;
-    background: rgba(21,11,21,0.87);
+    background: rgba(21,11,21,0.5);
     color: white;
 }
 
@@ -92,14 +92,16 @@ input:checked + label.tab {
 .m_leftsection{
     background: rgba(21,11,21,0.87);
     float: left;
-    width:199px;
-    height: 75px;
+    width:140px;
+    /*height: 75px;*/
+    padding:10px;
 }
 
 .m_leftsectionupper{
     background: rgba(21,11,21,0.87);
     height: 20px;
-
+    font-size: small;
+    width: 90%;
 }
 .m_user{
     float: left;
@@ -132,14 +134,14 @@ input:checked + label.tab {
 
 .m_progresssection{
     background: rgba(21,11,21,0.87);
-    width: 190px;
-    margin:5px auto;
-    height: 30px;
+    width: 100%;
+    margin: 5px auto;
+    height: 15px;
 }
 
 .m_progressbar{
     background: #220e0e;
-    width:190px;
+    width:100%;
     height: 100%;
     border-radius: 25px;
     overflow: hidden;
@@ -157,10 +159,11 @@ input:checked + label.tab {
 .m_content{
     background: rgba(21,11,21,0.87);
     float: left;
-    height: 75px;
-    width:100%;
+    /*height: 75px;*/
+    /*width:100%;*/
     max-width:549px;
     font-size: 2em;
+    padding:5px;
 }
 
 .m_cblock{
@@ -172,28 +175,40 @@ input:checked + label.tab {
 /*START -- Block Tab -- START*/
 
 .b_leftsection{
-    background: blue;
     float:left;
     width:199px;
 }
 
 .b_midsection{
-    background: #ffa100;
     float: left;
     width: 199px;
 }
 
 .b_rightsection{
     background: #ec73ff;
-    float: left;
-    width: 199px;
+    float: right;
+    min-width: 150px;
+    max-width: 300px;
+    margin:5px;
 }
 
 .single_chunk{
-    background: #220e0e;
     height: 15px;
     width: 100%;
 }
+
+.chunk_title {
+    width: 50%;
+    float: left;
+}
+
+.chunk_content {
+    width: 50%;
+    float: left;
+}
+
+
+
 
 /*END -- Block Tab -- END*/
 
@@ -208,22 +223,26 @@ input:checked + label.tab {
     width: 25px;
     background-color: red;
     border: 1px solid #216;
+    float: right;
 }
+
 .c_leftsection{
     float:left;
-    width:120px;
+    width:140px;
     height:100%;
 }
 
 .c_midsection {
-    width: 125px;
+    /*width: 125px;*/
     float: left;
-    font-size: 25px;
+    font-size: 2em;
+    padding:10px;
 }
 
 .c_rightsection {
-    width: 60px;
+    width: 63px;
     float: right;
+    padding: 5px;
 }
 
 .c_block{
@@ -239,6 +258,7 @@ input:checked + label.tab {
     overflow-x: hidden;
     height: 250px;
 }
+
 
 /*START --- Slider --- START*/
 .switch {
@@ -300,18 +320,83 @@ input:checked + .slider:before {
 
 }
 
+.mi_block{
+    border: 2px solid white;
+    border-radius: 5px;
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin-right: 5px;
+}
+
+.miner_statlayer1_leftsection_title {
+    width: 60%;
+    float: left;
+}
+
 .miner_statlayer2{
     width: 100%;
-
+    border: 1px solid rgba(165, 139, 155, 0.87);
+    float:left;
+    padding: 5px;
 }
 
 .miner_attempt{
     height:20px;
 }
 
-.miner_attempt div{
+.a_col_block{
     float:left;
-    width:50px;
+    width:10%;
+}
+
+.a_col_hit{
+    float:left;
+    width:10%;
+}
+
+.a_col_nonce{
+    float:left;
+    width:10%;
+}
+
+.a_col_package{
+    float:left;
+    width:60%;
+}
+
+.a_col_messages{
+    float:left;
+    width:10%;
+}
+
+.miner_statlayer_leftsection{
+    width:29%;
+}
+
+.miner_statlayer_leftsection_title {
+    width: 35%;
+    float: left;
+}
+
+.miner_statlayer_leftsection_content {
+    width:65%;
+    float: left;
+}
+
+.miner_statlayer_midsection{
+    width: 69%;
+    float: left;
+}
+
+.miner_statlayer_midsection_title {
+    width: 35%;
+    float: left;
+}
+
+.miner_statlayer_midsection_content {
+    width:35%;
+    float: left;
 }
 
 /*END -- Miner Tab -- END*/

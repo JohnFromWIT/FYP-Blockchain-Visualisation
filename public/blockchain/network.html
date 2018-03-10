@@ -150,23 +150,48 @@
     <!--Blocks Tab-->
     <section id="content2">
         <div class = "tab_contents">
+
+
             <div class="tab_header">
                 <div class="header_box">
-                    <div class="single_chunk" id="b_difficulty">Difficulty: 45</div>
+                    <div class="title" id="b_difficulty">Difficulty: 45</div>
                     <div class="single_chunk" id="b_chainlength">Chain Length: 45</div>
-
                 </div>
             </div>
+
+
             <div id="b1" class="item_portion">
                 <div class="b_leftsection">
-                    <div class="single_chunk b_number">122</div>
-                    <div class="single_chunk b_ts">12:59</div>
-                    <div class="single_chunk b_ph">af45ad</div>
+                    <div class="single_chunk b_number">
+                        <div class="chunk_title">Block#: </div>
+                        <div class="chunk_content">0</div>
+
+                    </div>
+                    <div class="single_chunk b_ts">
+                        <div class="chunk_title">TimeStamp: </div>
+                        <div class="chunk_content">12.59</div>
+                    </div>
+                    <div class="single_chunk b_ph">
+                        <div class="chunk_title">PrHash: </div>
+                        <div class="chunk_content">ad1e12</div>
+
+                    </div>
                 </div>
                 <div class="b_midsection">
-                    <div class="single_chunk b_nonce">4562</div>
-                    <div class="single_chunk b_fb">John</div>
-                    <div class="single_chunk b_col">#00B7FF</div>
+                    <div class="single_chunk b_nonce">
+                        <div class="chunk_title">Nonce: </div>
+                        <div class="chunk_content">45</div>
+                    </div>
+                    <div class="single_chunk b_fb">
+                        <div class="chunk_title">FloundBy: </div>
+                        <div class="chunk_content">John</div>
+
+                    </div>
+                    <div class="single_chunk b_col">
+                        <div class="chunk_title">Colour: </div>
+                        <div class="chunk_content">#45581</div>
+
+                    </div>
                 </div>
                 <div class="b_rightsection">
                     <div class="b_messagesbox">
@@ -224,40 +249,71 @@
             </div>
 
             <div class="miner_statlayer1">
-                <div class="miner_statlayer_leftsection">Current Block</div>
-                <div class="miner_statlayer_midsection">Difficulty</div>
+                <div class="miner_statlayer_leftsection title">Current Block</div>
             </div>
             <div class="miner_statlayer2">
-                <div class="miner_statlayer_leftsection">Nonce</div>
-                <div class="miner_statlayer_midsection">Package</div>
+                <div class="miner_statlayer_leftsection">
+
+                    <div class="miner_statlayer1_leftsection_title">
+                        <div class="mi_block" style="background: rgb(202, 135, 197)"></div>
+                        Block#: </div>
+                    <div id="m_s" class="miner_statlayer1_leftsection_content">1</div>
+                </div>
+            </div>
+
+                <div class="miner_statlayer2">
+                <div class="miner_statlayer_leftsection">
+                    <div class="miner_statlayer_leftsection_title title">Nonce</div>
+                    <div id="m_nonce" class="miner_statlayer_leftsection_content">45</div>
+                </div>
+                <div class="miner_statlayer_midsection">
+                    <div class="miner_statlayer_midsection_title title">Package</div>
+                    <div id="m_package" class="miner_statlayer_midsection_content">45</div>
+
+                </div>
 
             </div>
             <div class="miner_statlayer2">
-                <div class="miner_statlayer_leftsection">Hit</div>
-                <div class="miner_statlayer_midsection">Difficulty</div>
+                <div class="miner_statlayer_leftsection">
+                    <div class="miner_statlayer_leftsection_title title">Hit</div>
+                    <div id="m_hit" class="miner_statlayer_leftsection_content">Yes</div>
 
+                </div>
+                <div class="miner_statlayer_midsection">
+                    <div class="miner_statlayer_midsection_title title">Difficulty</div>
+                    <div id="m_difficulty" class="miner_statlayer_midsection_content">45</div>
+
+                </div>
             </div>
 
-            <div id="a1" class="item_portion miner_attempt">
-                <div class="a_col_block">a</div>
-                <div class="a_col_hit">a</div>
-                <div class="a_col_nonce">a</div>
-                <div class="a_col_package">a</div>
-                <div class="a_col_message">a</div>
+            <div id="attempts_titles" class="miner_attempt">
+                <div class="a_col_block title">Block</div>
+                <div class="a_col_hit title">Hit</div>
+                <div class="a_col_nonce title">Nonce</div>
+                <div class="a_col_package title">Package</div>
+                <div class="a_col_messages title">Messages</div>
             </div>
-            <div id="a2" class="item_portion miner_attempt">
+
+            <div id="a1" class="miner_attempt">
                 <div class="a_col_block">a</div>
                 <div class="a_col_hit">a</div>
                 <div class="a_col_nonce">a</div>
                 <div class="a_col_package">a</div>
-                <div class="a_col_message">a</div>
+                <div class="a_col_messages">a</div>
             </div>
-            <div id="a3" class="item_portion miner_attempt">
+            <div id="a2" class="miner_attempt">
                 <div class="a_col_block">a</div>
                 <div class="a_col_hit">a</div>
                 <div class="a_col_nonce">a</div>
                 <div class="a_col_package">a</div>
-                <div class="a_col_message">a</div>
+                <div class="a_col_messages">a</div>
+            </div>
+            <div id="a3" class="miner_attempt">
+                <div class="a_col_block">a</div>
+                <div class="a_col_hit">a</div>
+                <div class="a_col_nonce">a</div>
+                <div class="a_col_package">a</div>
+                <div class="a_col_messages">a</div>
             </div>
         </div>
     </section>
