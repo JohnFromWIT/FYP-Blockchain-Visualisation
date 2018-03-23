@@ -2,6 +2,7 @@
 //Create a new user model with random X Y positions
 function User () {
     this.userID = "";
+    this.mineID;
     this.name = "";
     this.coX = Math.floor(Math.random()*100);
     this.coY = Math.floor(Math.random()*100);
@@ -148,7 +149,6 @@ function clientListEntry(client){
     inputa.type = "checkbox";
     spana.classList.add("slider");
     spana.classList.add("round");
-
 
     //Add to document
     document.getElementById("tabs_client_list").appendChild(clientEntry);
