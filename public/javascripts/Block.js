@@ -1,11 +1,16 @@
 //Create block with properties
-function Block(blockID, blockNo, date, userID, message, hash){
-    this.blockID = blockID;
-    this.blockNo = blockNo;
-    this.blockTS = date.getTime();
-    this.findingUser = userID;
-    this.message = message;
-    this.hash = hash;
+function Block(){
+    this.blockID = "";
+    this.blockNo = 0;
+    this.timeStamp = "";
+    this.findingUser = "";
+    this.prevHash = "";
+    this.nonce = 70;
+    this.messages = [];
+    this.messageHash = 48655;
+    this.hash = "";
+    this.diff = networkDiff;
+    this.hit = false;
 }
 
 //Chain
@@ -13,9 +18,14 @@ function Chain(){
     this.blocks = [];
 }
 
-//Add block to chain
-function addBlock(chain, block){
-    chain.blocks.push(block);
+//Add block to allBlocks
+function addBlock(block){
+    allBlocks.push(block);
+}
+
+function updateChain(user, block)
+{
+    user.chain.push(block);
 }
 
 //Get only messgage on block on a chain

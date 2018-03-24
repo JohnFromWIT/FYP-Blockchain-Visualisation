@@ -24,7 +24,8 @@
 
     <script>
         var users = [];
-
+        var allBlocks = [];
+        var networkDiff = 6618932150;
         // a = Hash(0xf6c94957, 0x27359d02, 3).toString(16);
 
     </script>
@@ -347,6 +348,26 @@
             Node(user);
         });
     });
+
+    db.collection("blocks").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            let block = new Block();
+            let dbBlock = doc.data();
+            block.blockID = doc.id;
+            block.blockNo = dbBlock.blockNo;
+            block.hash = dbBlock.hash;
+            block.timeStamp = dbBlock.timeStamp;
+            block.findingUser = dbBlock.findingUser;
+            block.messages = dbBlock.messages;
+            block.messageHash = dbBlock.messageHash;
+            block.diff = dbBlock.diff;
+
+            addBlock(block);
+            // Node(user);
+        });
+    });
+
+
 
     //update the message
     function updateMessage() {

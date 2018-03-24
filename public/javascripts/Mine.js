@@ -1,29 +1,3 @@
-function mine(){
-    let nonce = 76;
-    let attemptID = 4;
-
-    // this.attemptID = attemptID;
-    // this.block = 0;
-    // this.nonce = nonce;
-    // this.prevHash = 0xff;
-    // this.messages = [];
-    // this.messageHash = 0xff;
-    // this.package = Hash(this.prevHash, this.messageHash, this.nonce);
-    // this.hit = validate(this.package);
-
-    alert("Mined");
-
-}
-
-function stopMine(user){
-    clearInterval(user.mineID);
-
-};
-
-function startMine(user){
-    user.mineID = window.setInterval(mine, 3000);
-}
-
 function mineOnOff(user){
     //var a = getUserMining(userID);
     if(user.mining === false)
@@ -31,7 +5,7 @@ function mineOnOff(user){
         snackbar("User: "+user.name+" begins mining");
         user.mining = true;
         startMine(user);
-        }else{
+    }else{
         snackbar("User: "+user.name+" stops mining");
         user.mining = false;
         stopMine(user);
@@ -39,32 +13,58 @@ function mineOnOff(user){
     updateUser(user);
 }
 
-
-function validate(hash){
-//calidates hash
-    var diff = 0xff;
-    //Does hash meet criteria?
-    if (hash < diff)
-    {
-        return true;
-    }
-    else {
-        return false;
-    }
-    // Return result
+function stopMine(user){
+    clearInterval(user.mineID);
 }
 
-function Hash(prevHash, messageHash, nonce){
+function startMine(user){
+    user.mineID = window.setInterval(mine, 3000, user);
+}
+
+function mine(user){
+    let attempt  = new Block();
+    user.nonce++;
+    attempt.nonce = user.nonce;
+    attempt.blockNo = user.blockNo + 1;
+    attempt.timeStamp = Date.now();
+    attempt.findingUser = user.userID;
+    attempt.messages = [1,5];
+    attempt.prevHash = 486975;
+
+    attempt.hash = Hash(attempt);
+    if (validate(attempt, networkDiff))
+    {
+        attempt.hit = true;
+        addBlock(attempt);
+        updateChain(user, attempt);
+        snackbar("success");
+        user.nonce = 0;
+    }
+    alert("Hash: #" + attempt.hash.toString(16) + "   Hit: " + attempt.hit + "   Time: "+ attempt.timeStamp);
+}
+
+function Hash(hashable){
 //Using inputs creates a hash
-    //Create single entry
-    var a = 0xff;
-    var ceiling = 0xffffffff;
+    //Ceiling - range
+    let ceiling = 0xffffffff;
+    let prevHash = hashable.prevHash;
+    let messageHash = hashable.messageHash;
+    let nonce = hashable.nonce;
+
 
     //Run Process
-    a = (prevHash*messageHash*nonce)%ceiling;
+    let hash = (prevHash*messageHash*nonce)%ceiling;
 
     //Return the hash
-    return a;
+    return hash;
+
+}
+
+//validates block hash against passed in diff
+//diff comes from different places depending on where function is called from.
+function validate(block, diff){
+    //Does hash meet criteria?
+    return(block.hash<diff);
 
 }
 

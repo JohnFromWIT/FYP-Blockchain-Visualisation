@@ -6,9 +6,12 @@ function User () {
     this.name = "";
     this.coX = Math.floor(Math.random()*100);
     this.coY = Math.floor(Math.random()*100);
+    this.blockNo;
     this.blockColour = '#'+Math.floor(Math.random()*16777215).toString(16);
     this.bot = 0;
     this.mining = false;
+    this.nonce = 0;
+    this.chain = [];
     this.oj = function () {
         var oj = new Object({name: this.name, coX: this.coX, coY: this.coY, blockColour: this.blockColour, mining: this.mining});
         return oj;
