@@ -87,7 +87,6 @@ function Node(client) {
 }
 
 function refreshNodeList() {
-    snackbar(users.length);
     var list = document.getElementById("tabs_client_list");
     list.innerText = "";
     users.forEach((user) => {

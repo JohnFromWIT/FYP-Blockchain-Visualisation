@@ -110,50 +110,52 @@
                 </div>
             </div>
 
+<ul id="tabs_block_list" class = "tab_items_list">
 
-            <div id="b1" class="item_portion">
-                <div class="b_leftsection">
-                    <div class="single_chunk b_number">
-                        <div class="chunk_title title">Block#: </div>
-                        <div class="chunk_content">0</div>
+</ul>
+            <!--<div id="b1" class="item_portion">-->
+                <!--<div class="b_leftsection">-->
+                    <!--<div class="single_chunk b_number">-->
+                        <!--<div class="chunk_title title">Block#: </div>-->
+                        <!--<div class="chunk_content">0</div>-->
 
-                    </div>
-                    <div class="single_chunk b_ts">
-                        <div class="chunk_title title">TimeStamp: </div>
-                        <div class="chunk_content">12.59</div>
-                    </div>
-                    <div class="single_chunk b_ph">
-                        <div class="chunk_title title">PrHash: </div>
-                        <div class="chunk_content">ad1e12</div>
+                    <!--</div>-->
+                    <!--<div class="single_chunk b_ts">-->
+                        <!--<div class="chunk_title title">TimeStamp: </div>-->
+                        <!--<div class="chunk_content">12.59</div>-->
+                    <!--</div>-->
 
-                    </div>
-                </div>
-                <div class="b_midsection">
-                    <div class="single_chunk b_nonce">
-                        <div class="chunk_title title">Nonce: </div>
-                        <div class="chunk_content">45</div>
-                    </div>
-                    <div class="single_chunk b_fb">
-                        <div class="chunk_title title">FloundBy: </div>
-                        <div class="chunk_content">John</div>
+                    <!--<div class="single_chunk b_ph">-->
+                        <!--<div class="chunk_title title">PrHash: </div>-->
+                        <!--<div class="chunk_content">ad1e12</div>-->
+                    <!--</div>-->
 
-                    </div>
-                    <div class="single_chunk b_col">
-                        <div class="chunk_title title">Colour: </div>
-                        <div class="chunk_content">#45581</div>
+                <!--</div>-->
+                <!--<div class="b_midsection">-->
+                    <!--<div class="single_chunk b_nonce">-->
+                        <!--<div class="chunk_title title">Nonce: </div>-->
+                        <!--<div class="chunk_content">45</div>-->
+                    <!--</div>-->
+                    <!--<div class="single_chunk b_fb">-->
+                        <!--<div class="chunk_title title">FoundBy: </div>-->
+                        <!--<div class="chunk_content">John</div>-->
 
-                    </div>
-                </div>
-                <div class="b_rightsection">
-                    <div class="b_messagesbox">
-                        <div class="b_message">
-                            <div class="b_messageuser">John</div>
-                            <div class="b_messagecontent">Hello There!!</div>
-                            <div class="b_messagetime">12:58</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    <!--</div>-->
+                    <!--<div class="single_chunk b_col">-->
+                        <!--<div class="chunk_title title">Colour: </div>-->
+                        <!--<div class="chunk_content">#45581</div>-->
+
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="b_rightsection">-->
+                    <!--<div class="b_messagesbox">-->
+                        <!--<div class="b_message">12:58 - John - Hello There!!</div>-->
+                        <!--<div class="b_message">12:58 - John - Hello There!!</div>-->
+                        <!--<div class="b_message">12:58 - John - Hello There!!</div>-->
+                        <!--<div class="b_message">12:58 - John - Hello There!!</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
 
 
         </div>
@@ -305,15 +307,14 @@
             block.blockID = doc.id;
             block.blockNo = dbBlock.blockNo;
             block.hash = dbBlock.hash;
-            block.timeStamp = dbBlock.timeStamp;
+            block.time = dbBlock.time;
             block.findingUser = dbBlock.findingUser;
             block.messages = dbBlock.messages;
             block.messageHash = dbBlock.messageHash;
             block.diff = dbBlock.diff;
 
             addBlock(block);
-            // Node(user);
-        });
+        }), refreshBlockList();
     });
 
     db.collection("messages").get().then((querySnapshot) => {

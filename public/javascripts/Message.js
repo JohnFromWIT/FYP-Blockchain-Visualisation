@@ -96,13 +96,15 @@ function messageListEntry(message)
 
     var ceiling = 100;
     var incrementSize = 10;
-    var width = ""
-    if (message.Concensus*incrementSize<ceiling) {
-        width = "" + incrementSize * message.Concensus + "%";
-    }else{
-        width = "" + ceiling + "%";
-    }
-    divj.style.width = width;
+    // var width = ""
+    // if (message.Concensus*incrementSize<ceiling) {
+    //     width = "" + incrementSize * message.Concensus + "%";
+    // }else{
+    //     width = "" + ceiling + "%";
+    // }
+    // divj.style.width = width;
+
+    divj.style.width = (message.Concensus*incrementSize<ceiling)? incrementSize * message.Concensus + "%" : ceiling + "%";
 
     divk.innerText = message.Content;
 
