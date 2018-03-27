@@ -74,7 +74,7 @@ function Bot() {
         console.log('Added document with ID: ', ref.id);
         client.userID = ref.id;
         addUser(client);
-        Node(client);
+        refreshNodeList();
         snackbar(client.name + " added");
     });
 
@@ -84,6 +84,17 @@ function Bot() {
 function Node(client) {
     clientMapEntry(client);
     clientListEntry(client);
+}
+
+function refreshNodeList() {
+    snackbar(users.length);
+    var list = document.getElementById("tabs_client_list");
+    list.innerText = "";
+    users.forEach((user) => {
+        clientMapEntry(user);
+        clientListEntry(user);
+    });
+
 }
 
 //Map - Add client to html and css

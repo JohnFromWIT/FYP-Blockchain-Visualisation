@@ -221,7 +221,7 @@ input:checked + label.tab {
 .c_remove{
     height: 25px;
     width: 25px;
-    background-color: red;
+    background-color: #ff5651;
     border: 1px solid #216;
     float: right;
 }
