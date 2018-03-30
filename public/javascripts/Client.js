@@ -2,7 +2,6 @@
 //Create a new user model with random X Y positions
 function User () {
     this.userID = "";
-    this.mineID;
     this.name = "";
     this.coX = Math.floor(Math.random()*100);
     this.coY = Math.floor(Math.random()*100);
@@ -12,10 +11,6 @@ function User () {
     this.mining = false;
     this.nonce = 0;
     this.chain = [];
-    this.oj = function () {
-        var oj = new Object({name: this.name, coX: this.coX, coY: this.coY, blockColour: this.blockColour, mining: this.mining});
-        return oj;
-    }
 }
 
 function addUser(user){
@@ -27,6 +22,7 @@ function removeUser(user){
         return listEntries.userID !== user.userID;
     });
    users = resultList;
+   refreshNodeList();
 }
 
 function findUser(id){
@@ -73,22 +69,19 @@ function Bot() {
     }).then(ref => {
         console.log('Added document with ID: ', ref.id);
         client.userID = ref.id;
-        addUser(client);
         refreshNodeList();
         snackbar(client.name + " added");
     });
-
 }
 
 //A client s visual representation on the network
-function Node(client) {
-    clientMapEntry(client);
-    clientListEntry(client);
-}
 
 function refreshNodeList() {
     var list = document.getElementById("tabs_client_list");
+    var map = document.getElementById("map");
     list.innerText = "";
+    map.innerText = "";
+
     users.forEach((user) => {
         clientMapEntry(user);
         clientListEntry(user);
@@ -188,14 +181,13 @@ function clientListEntry(client){
         labela.appendChild(inputa);
         inputa.appendChild(spana);
     }
-
 }
 
 function removeBot(user){
     usersRef.doc(user.userID).delete().then(function() {
         snackbar(""+user.name+" Removed");
     }).catch(function(error) {
-        snackbar("Error with Bot Removal");
+        console(error);
     });
 
     var entry = document.getElementById(user.userID);
