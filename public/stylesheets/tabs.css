@@ -20,7 +20,7 @@ label.tab {
     padding: 10px 25px;
     font-weight: 600;
     text-align: center;
-    color: #bbb;
+    color: #868;
     border: 1px solid white;
 }
 
@@ -31,12 +31,12 @@ label.tab:before {
 }
 
 label.tab:hover {
-    color: #888;
+    color: #bbb;
     cursor: pointer;
 }
 
 input:checked + label.tab {
-    color: #555;
+    color: #bbb;
     border: 1px solid #ddd;
     border-top: 2px solid orange;
     border-bottom: 1px solid #fff;
@@ -130,6 +130,7 @@ input:checked + label.tab {
     float: left;
     width: 50%;
     height: 100%;
+    font-size: x-small;
 }
 
 .m_progresssection{

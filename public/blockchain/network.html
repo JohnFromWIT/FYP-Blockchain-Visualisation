@@ -281,56 +281,98 @@
 
 <script>
 
+
+
     var db = firebase.firestore();
 
-    db.collection("users").get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            let user = new User();
-            let dbUser = doc.data();
-            user.userID = doc.id;
-            user.name = dbUser.name;
-            user.coX = dbUser.coX;
-            user.coY = dbUser.coY;
-            user.blockColour = dbUser.blockColour;
-            user.bot = dbUser.bot;
-            user.mining = dbUser.mining;
+    retrieveUsers();
+    retrieveBlocks();
+    retrieveMessages();
 
-            addUser(user);
-            // Node(user);
-        }), refreshNodeList();
-    });
+    // var msgInput = document.getElementById("messageText");
+    // msgInput.addEventListener("keyup", function(event) {
+    //     event.preventDefault();
+    //     if (event.keyCode === 13) {
+    //         newMessage();
+    //     }
+    // });
 
-    db.collection("blocks").get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            let block = new Block();
-            let dbBlock = doc.data();
-            block.blockID = doc.id;
-            block.blockNo = dbBlock.blockNo;
-            block.hash = dbBlock.hash;
-            block.time = dbBlock.time;
-            block.findingUser = dbBlock.findingUser;
-            block.messages = dbBlock.messages;
-            block.messageHash = dbBlock.messageHash;
-            block.diff = dbBlock.diff;
+    function retrieveUsers() {
+        users = [];
+        db.collection("users").get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                let user = new User();
+                let dbUser = doc.data();
+                user.userID = doc.id;
+                user.name = dbUser.name;
+                user.coX = dbUser.coX;
+                user.coY = dbUser.coY;
+                user.blockColour = dbUser.blockColour;
+                user.bot = dbUser.bot;
+                user.mining = dbUser.mining;
 
-            addBlock(block);
-        }), refreshBlockList();
-    });
+                addUser(user);
+            }), refreshNodeList();
+        });
+    }
+    function retrieveBlocks() {
+        allBlocks = [];
+        db.collection("blocks").get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                let block = new Block();
+                let dbBlock = doc.data();
+                block.blockID = doc.id;
+                block.blockNo = dbBlock.blockNo;
+                block.hash = dbBlock.hash;
+                block.time = dbBlock.time;
+                block.findingUser = dbBlock.findingUser;
+                block.messages = dbBlock.messages;
+                block.messageHash = dbBlock.messageHash;
+                block.diff = dbBlock.diff;
 
-    db.collection("messages").get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            let message = new Message();
-            let dbMessage = doc.data();
-            message.messageID = doc.id;
-            message.Content = dbMessage.Content;
-            message.Concensus = dbMessage.Concensus;
-            message.UserID = dbMessage.UserID;
+                addBlock(block);
+            }), refreshBlockList();
+        });
+    }
 
-            addMessage(message);
-            // Node(user);
-        }), refreshMessages();
-    });
 
+    function retrieveMessages() {
+        messages = [];
+        db.collection("messages").orderBy('Time').get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                let message = new Message();
+                let dbMessage = doc.data();
+                message.messageID = doc.id;
+                message.Content = dbMessage.Content;
+                message.Concensus = dbMessage.Concensus;
+                message.UserID = dbMessage.UserID;
+                message.Time = dbMessage.Time;
+
+                addMessage(message);
+            }), refreshMessages();
+        });
+    }
+
+    db.collection("messages")
+        .onSnapshot(function (snapshot) {
+            retrieveMessages()
+        },function (error) {
+            console(error);
+        });
+
+    db.collection("blocks")
+        .onSnapshot(function (snapshot) {
+            retrieveBlocks()
+        },function (error) {
+            console(error);
+        });
+
+    db.collection("users")
+        .onSnapshot(function (snapshot) {
+            retrieveUsers()
+        },function (error) {
+            console(error);
+        });
 
     //New message
     function newMessage() {

@@ -13,15 +13,6 @@ function compiledMessage()
 // }
 
 
-function timeConverter(ts)
-{
-    let hours = ts.getHours();
-    let minutes = "0" + ts.getMinutes();
-    let seconds = "0" + ts.getSeconds();
-    let time = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-    return time;
-}
-
 //New message
 function message(){
     this.messageID = "";
@@ -33,12 +24,12 @@ function Message(){
     this.Content = "";
     this.Concensus = 0;
     this.UserID = "";
-    this.Time = Date.now();
+    this.Time = new Date();
 }
 
 //Current add message
 function addMessage(message){
-    messages.push(message);
+    messages.unshift(message);
 }
 
 
@@ -50,6 +41,11 @@ function refreshMessages()
     messages.forEach((message) => {
         messageListEntry(message);
     });
+}
+
+function timeString(Time)
+{
+    return Time.getDay()+'/'+Time.getDate()+'-'+Time.getHours()+':'+Time.getMinutes()+':'+Time.getSeconds();
 }
 
 function messageListEntry(message)
@@ -91,8 +87,7 @@ function messageListEntry(message)
 
     //Div Contents
     divd.innerText = message.UserID;
-    divf.innerText = "Time: ";
-    divg.innerText = message.Time;
+    divg.innerText = timeString(message.Time);
 
     var ceiling = 100;
     var incrementSize = 10;
@@ -116,7 +111,6 @@ function messageListEntry(message)
     divc.appendChild(divd);
     divc.appendChild(dive);
 
-    dive.appendChild(divf);
     dive.appendChild(divg);
 
     divb.appendChild(divh);
