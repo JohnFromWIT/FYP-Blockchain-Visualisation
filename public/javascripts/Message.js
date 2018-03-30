@@ -39,9 +39,12 @@ function refreshMessages()
     var list = document.getElementById("tabs_message_list");
     list.innerText = "";
     messages.forEach((message) => {
+
         messageListEntry(message);
     });
 }
+
+
 
 function timeString(Time)
 {
@@ -50,6 +53,9 @@ function timeString(Time)
 
 function messageListEntry(message)
 {
+    var muserid = message.UserID;
+    var user = findUser(muserid);
+
 //HTML Elements
     var messageEntry = document.createElement("LI");
 
@@ -86,18 +92,12 @@ function messageListEntry(message)
     divl.classList.add("m_cblock");
 
     //Div Contents
-    divd.innerText = message.UserID;
+    divd.innerText = user.name;
     divg.innerText = timeString(message.Time);
 
     var ceiling = 100;
     var incrementSize = 10;
-    // var width = ""
-    // if (message.Concensus*incrementSize<ceiling) {
-    //     width = "" + incrementSize * message.Concensus + "%";
-    // }else{
-    //     width = "" + ceiling + "%";
-    // }
-    // divj.style.width = width;
+
 
     divj.style.width = (message.Concensus*incrementSize<ceiling)? incrementSize * message.Concensus + "%" : ceiling + "%";
 

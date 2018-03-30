@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/tabs.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/Tooltips.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/map.css">
 
     <!--Firebase Libraries and Init with config-->
@@ -15,6 +16,7 @@
 
     <script type="text/javascript" src="../javascripts/FirebaseInitialisation.js"></script>
     <script type="text/javascript" src="../javascripts/Firebase.js"></script>
+    <script type="text/javascript" src="../javascripts/Profanity.js"></script>
     <script type="text/javascript" src="../javascripts/Client.js"></script>
     <script type="text/javascript" src="../javascripts/Mine.js"></script>
     <script type="text/javascript" src="../javascripts/Block.js"></script>
@@ -30,7 +32,7 @@
         // a = Hash(0xf6c94957, 0x27359d02, 3).toString(16);
         var chainLength = 0;
         var localUser = new User();
-        localUser.userID = "U0";
+        localUser.userID = "Of4b9xNUAAx4LqesB3oY";
         localUser.name = "Local User";
     </script>
 
@@ -62,6 +64,7 @@
     <input class="tabs" id="tab4" type="radio" name="tabs">
     <label class="tab" for="tab4">Mining</label>
 
+    <span class="tooltip">ToolTip<span class="tooltip-content clearfix"><img src="https://heydesign.com/wp-content/uploads/2017/08/Cool-Logos-and-Graphic-Trends-about-Music-DJs-750x500.jpg" /><span class="tooltip-text">Explain what's here</span></span></span>
     <!--Message Tab-->
     <section id="content1">
         <div class = "tab_contents">
@@ -282,7 +285,6 @@
 <script>
 
 
-
     var db = firebase.firestore();
 
     retrieveUsers();
@@ -374,31 +376,48 @@
             console(error);
         });
 
+
+    String.prototype.contains = function(str) { return this.indexOf(str) != -1; };
+
+    var containsProfanity = function(text){
+        var returnVal = false;
+        for (var i = 0; i < profanities.length; i++) {
+            if(text.toLowerCase().contains(profanities[i].toLowerCase())){
+                returnVal = true;
+                break;
+            }
+        }
+        return returnVal;
+    }
+
     //New message
     function newMessage() {
         var message = new Message();
         message.UserID = localUser.userID;
         message.Content = document.getElementById('messageText').value;
 
-        db.collection("messages").doc().set({
-            Content: message.Content,
-            Concensus: message.Concensus,
-            UserID: message.UserID,
-            Time: message.Time
-        })
-            .then(function() {
-                addMessage(message);
-                refreshMessages();
-                console.log("Document successfully written!");
+        if(!containsProfanity(message.Content)) {
+
+            db.collection("messages").doc().set({
+                Content: message.Content,
+                Concensus: message.Concensus,
+                UserID: message.UserID,
+                Time: message.Time
             })
-            .catch(function(error) {
-                console.error("Error writing document: ", error);
-            });
-        document.getElementById('messageText').value = "";
+                .then(function () {
+                    refreshMessages();
+                    console.log("Message successfully Added!");
+                })
+                .catch(function (error) {
+                    console.error("Error writing document: ", error);
+                });
+            document.getElementById('messageText').value = "";
+        }else{
+            console.log("Profanity Detected");
+            snackbar("No profanity please.");
+        }
 
         // var lastMessage = db.collection("messages").orderBy('Time', 'desc').limit(1);
-
-        snackbar(message.UserID);
     }
 
     function snackbar(text){
