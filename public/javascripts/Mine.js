@@ -10,7 +10,8 @@ function mineOnOff(user){
         user.mining = false;
         stopMine(user);
     }
-    updateUser(user);
+    // updateUser(user);
+    refreshNodeList();
 }
 
 function stopMine(user){
@@ -26,21 +27,27 @@ function mine(user){
     user.nonce++;
     attempt.nonce = user.nonce;
     attempt.blockNo = user.blockNo + 1;
-    attempt.timeStamp = Date.now();
+    // attempt.timeStamp = Date();
     attempt.findingUser = user.userID;
     attempt.messages = [1,5];
-    attempt.prevHash = 486975;
+    attempt.prevHash = user.block;
 
     attempt.hash = Hash(attempt);
     if (validate(attempt, networkDiff))
     {
         attempt.hit = true;
         addBlock(attempt);
-        updateChain(user, attempt);
-        snackbar("success");
         user.nonce = 0;
+        user.blockNo = attempt.blockNo;
+        user.block = attempt.hash;
+        updateChain(user, attempt);
+        snackbar(user.name + " found a block!");
+        user.nonce = 0;
+        refreshBlockList();
+        refreshNodeList();
+        retrieveMessages();
     }
-    alert("Hash: #" + attempt.hash.toString(16) + "   Hit: " + attempt.hit + "   Time: "+ attempt.timeStamp);
+    // alert("Hash: #" + attempt.hash.toString(16) + "   Hit: " + attempt.hit + "   Nonce: "+ attempt.nonce);
 }
 
 function Hash(hashable){
@@ -48,16 +55,15 @@ function Hash(hashable){
     //Ceiling - range
     let ceiling = 0xffffffff;
     let prevHash = hashable.prevHash;
-    let messageHash = hashable.messageHash;
+    let messageHash = hashable.prevHash;
+    // let messageHash = hashable.messageHash;
     let nonce = hashable.nonce;
-
 
     //Run Process
     let hash = (prevHash*messageHash*nonce)%ceiling;
 
     //Return the hash
     return hash;
-
 }
 
 //validates block hash against passed in diff

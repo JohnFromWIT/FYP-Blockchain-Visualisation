@@ -1,80 +1,4 @@
-
-//Create a new user model with random X Y positions
-function User () {
-    this.userID = "";
-    this.name = "";
-    this.coX = Math.floor(Math.random()*100);
-    this.coY = Math.floor(Math.random()*100);
-    this.blockNo;
-    this.blockColour = '#'+Math.floor(Math.random()*16777215).toString(16);
-    this.bot = 0;
-    this.mining = false;
-    this.nonce = 0;
-    this.chain = [];
-}
-
-function addUser(user){
-    users.push(user);
-}
-
-function removeUser(user){
-   var resultList = users.filter(function(listEntries) {
-        return listEntries.userID !== user.userID;
-    });
-   users = resultList;
-   refreshNodeList();
-}
-
-function findUser(id){
-    for (var i = 0; i < users.length; i++) {
-        if (users[i]["userID"] === id) {
-            return users[i];
-        }
-    }
-    return null;
-}
-
-
-//Update existing user model
-// function updateUser(user, userID, name, CoX, CoY, blockColour, bot, mining){
-function updateUser(user){
-    for (var i = 0; i < users.length; i++) {
-        if (users[i]["userID"] === user.userID) {
-
-            users[i].userID = user.userID;
-            users[i].name = user.name;
-            users[i].coX = user.coX;
-            users[i].coY = user.coY;
-            users[i].blockColour = user.blockColour;
-            users[i].bot = user.bot;
-            users[i].mining = user.mining;
-        }
-    }
-    updateFireStore(user);
-}
-
-//Create a new user model bot and add to the network
-function Bot() {
-    var client = new User();
-    client.userID = "" + Math.floor(Math.random() * 100);
-    client.name = "Bot" + client.userID;
-    client.bot = 1;
-    usersRef.add({
-        'name':client.name,
-        'coX':client.coX,
-        'coY':client.coY,
-        'blockColour':client.blockColour,
-        'bot':client.bot,
-        'mining': client.mining
-    }).then(ref => {
-        console.log('Added document with ID: ', ref.id);
-        client.userID = ref.id;
-        refreshNodeList();
-        snackbar(client.name + " added");
-    });
-}
-
-//A client s visual representation on the network
+//------- Client Views -----------//
 
 function refreshNodeList() {
     var list = document.getElementById("tabs_client_list");
@@ -86,11 +10,13 @@ function refreshNodeList() {
         clientMapEntry(user);
         clientListEntry(user);
     });
-
 }
+
 
 //Map - Add client to html and css
 function clientMapEntry(client){
+    var colour = '#'+client.block.toString(16).substring(0,6);
+
     //HTML Elements
     var newclient = document.createElement("LI");
     var div1 = document.createElement("div");
@@ -108,7 +34,7 @@ function clientMapEntry(client){
     //CSS Elements - Position and colour
     div1.style.top = "" + client.coY + "px";
     div1.style.left = "" + client.coX + "%";
-    div3.style.background = client.blockColour;
+    div3.style.background = colour;
 
     //Add to document
     document.getElementById("map").appendChild(newclient);
@@ -127,6 +53,7 @@ function clientMapEntry(client){
 function clientListEntry(client){
     //HTML Elements
     var clientEntry = document.createElement("LI");
+    var colour = '#'+client.block.toString(16).substring(0,6);
 
     var diva = document.createElement("div");
     var divb = document.createElement("div");
@@ -150,7 +77,8 @@ function clientListEntry(client){
     divd.classList.add("c_rightsection");
 
     //Functionals classes
-    divb.style.background = client.blockColour;
+
+    divb.style.background = colour;
     labela.classList.add("switch");
     inputa.type = "checkbox";
     spana.classList.add("slider");
@@ -181,19 +109,4 @@ function clientListEntry(client){
         labela.appendChild(inputa);
         inputa.appendChild(spana);
     }
-}
-
-function removeBot(user){
-    usersRef.doc(user.userID).delete().then(function() {
-        snackbar(""+user.name+" Removed");
-    }).catch(function(error) {
-        console(error);
-    });
-
-    var entry = document.getElementById(user.userID);
-    entry.parentNode.removeChild(entry);
-    entry = document.getElementById(user.userID);
-    entry.parentNode.removeChild(entry);
-
-    removeUser(user);
 }
