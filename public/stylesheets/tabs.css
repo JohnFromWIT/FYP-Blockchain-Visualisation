@@ -198,8 +198,7 @@ input:checked + label.tab {
     border: 1px solid rgba(165, 139, 155, 0.87);
     font-size: x-small;
     float: right;
-    min-width: 250px;
-    max-width: 300px;
+    width: 250px;
     height: 80%;
     overflow: scroll;
     overflow-x: hidden;

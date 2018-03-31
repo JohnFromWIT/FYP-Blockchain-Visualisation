@@ -30,3 +30,22 @@ function removeBot(user){
 
     removeUser(user);
 }
+
+function retrieveUsers() {
+    users = [];
+    db.collection("users").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            let user = new User();
+            let dbUser = doc.data();
+            user.userID = doc.id;
+            user.name = dbUser.name;
+            user.coX = dbUser.coX;
+            user.coY = dbUser.coY;
+            user.blockColour = dbUser.blockColour;
+            user.bot = dbUser.bot;
+            user.mining = dbUser.mining;
+
+            addUser(user);
+        }), refreshNodeList();
+    });
+}

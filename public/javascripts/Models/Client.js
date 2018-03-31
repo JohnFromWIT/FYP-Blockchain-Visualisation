@@ -13,6 +13,7 @@ function User () {
     this.mineID = "";
     this.nonce = 0;
     this.chain = [];
+    this.lastMessage = -1;
 }
 
 //Create a new user model bot and add to the network
@@ -43,6 +44,7 @@ function findUser(id){
     }
     return null;
 }
+
 
 function updateUser(user){
     for (var i = 0; i < users.length; i++) {

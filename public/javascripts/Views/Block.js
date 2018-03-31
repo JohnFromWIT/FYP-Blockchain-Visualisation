@@ -6,7 +6,14 @@ function blockListEntry(block){
     var colour = '#'+block.hash.toString(16).substring(0,6);
     var buserid = block.findingUser;
     var user = findUser(buserid);
+    var blockMessages = "";
 
+
+    for(i = 0; i < block.messages.length-1; i++)
+    {
+        var username = findUser(messages[i].UserID).name;
+        blockMessages = blockMessages + username + ": "+ messages[i].Content + "</br>";
+    }
 
     var diva = document.createElement("div");
     var divb = document.createElement("div");
@@ -99,6 +106,8 @@ function blockListEntry(block){
 
     divt.innerText = "Colour:";
     divu.innerText = colour;
+
+    divw.innerHTML = blockMessages;
 
     //Div Styles
     diva.style.background = colour;

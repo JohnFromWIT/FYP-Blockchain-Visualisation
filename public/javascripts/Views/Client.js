@@ -76,6 +76,9 @@ function clientListEntry(client){
     divc.innerText = client.name;
     divd.classList.add("c_rightsection");
 
+    //Div Style
+    divb.title = "Users current block";
+
     //Functionals classes
 
     divb.style.background = colour;
@@ -97,6 +100,8 @@ function clientListEntry(client){
         btna.setAttribute("data-parent_id", client.userID);
         btna.classList.add("c_remove");
         btna.innerText = "-";
+        btna.title = "Remove bot";
+        labela.title = "Bot mining on off";
         btna.addEventListener("click", function () {
             var user = findUser(btna.getAttribute("data-parent_id"));
             removeBot(user);

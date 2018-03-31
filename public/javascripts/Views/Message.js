@@ -56,6 +56,10 @@ function messageListEntry(message)
     divg.innerText = timeString(message.Time);
 
     //Div Styles
+    divi.title = "Consensus";
+    divd.title = "Username";
+    divg.title = "Time of Message";
+
     var ceiling = 100;
     var incrementSize = 10;
 

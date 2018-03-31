@@ -59,8 +59,8 @@
 
 <!--Logo Elements-->
 <div class="logo-container" >
-    <img id="logo-tall" src="https://i.imgur.com/sb4fvdm.png"/>
-    <img id="logo-wide" src="https://i.imgur.com/vxaU676.png"/>
+    <img id="logo-tall" title="Visual-Chain Logo" src="https://i.imgur.com/sb4fvdm.png"/>
+    <img id="logo-wide" title="Visual-Chain Logo" src="https://i.imgur.com/vxaU676.png"/>
 </div>
 <!--Client map-->
 <ul id="map"></ul>
@@ -69,16 +69,16 @@
 <div class="message tabbox">
     <!--Tab Headers-->
     <input class="tabs" id="tab1" type="radio" name="tabs" checked>
-    <label class="tab" for="tab1">Messages</label>
+    <label class="tab" title="Messages Tab" for="tab1">Messages</label>
 
     <input class="tabs" id="tab2" type="radio" name="tabs">
-    <label class="tab" for="tab2">Blocks</label>
+    <label class="tab" title="Blocks Tab" for="tab2">Blocks</label>
 
     <input class="tabs" id="tab3" type="radio" name="tabs">
-    <label class="tab" for="tab3">Clients</label>
+    <label class="tab" title="Clients Tab" for="tab3">Clients</label>
 
     <input class="tabs" id="tab4" type="radio" name="tabs">
-    <label class="tab" for="tab4">Mining</label>
+    <label class="tab" title="Mining Tab" for="tab4">Mining</label>
 
     <span class="tooltip">ToolTip<span class="tooltip-content clearfix"><img src="https://heydesign.com/wp-content/uploads/2017/08/Cool-Logos-and-Graphic-Trends-about-Music-DJs-750x500.jpg" /><span class="tooltip-text">Explain what's here</span></span></span>
     <!--Message Tab-->
@@ -87,7 +87,7 @@
             <div class="tab_header">
                 <div class="header_box">
                     <input class="m_input" id="messageText" type="text" name="fname" placeholder="Write Message Here.." value="">
-                    <button class="m_send" id="btn_NewMessage" onclick="newMessage()">Send</button>
+                    <button class="m_send" title="Adds a new message." id="btn_NewMessage" onclick="newMessage()">Send</button>
                 </div>
             </div>
 
@@ -124,8 +124,8 @@
 
             <div class="tab_header">
                 <div class="header_box">
-                    <div class="title" id="b_difficulty">Difficulty: 45</div>
-                    <div class="single_chunk" id="b_chainlength">Chain Length: 45</div>
+                    <div class="title" title="Current Network Difficulty" id="b_difficulty">Difficulty: 45</div>
+                    <div class="single_chunk"  title="Current Chain Length" id="b_chainlength">Chain Length: 45</div>
                 </div>
             </div>
 
@@ -185,7 +185,7 @@
         <div class = "tab_contents">
             <div class="tab_header">
                 <div class="header_box">
-                    <button class="c_add" id="c_btn_add" onclick="Bot()">+</button>
+                    <button class="c_add" id="c_btn_add" title="Add a Bot" onclick="Bot()">+</button>
                 </div>
             </div>
 
@@ -216,7 +216,7 @@
                 <div class="header_box">
                     <label class="switch">
                         <input type="checkbox" checked>
-                        <span class="slider round"></span>
+                        <span  title="Switch Mining On Off" class="slider round"></span>
                     </label>
 
                 </div>
@@ -229,7 +229,7 @@
                 <div class="miner_statlayer_leftsection">
 
                     <div class="miner_statlayer1_leftsection_title">
-                        <div class="mi_block" style="background: rgb(202, 135, 197)"></div>
+                        <div class="mi_block" title="Current block colour" style="background: rgb(202, 135, 197)"></div>
                         Block#: </div>
                     <div id="m_s" class="miner_statlayer1_leftsection_content">1</div>
                 </div>
@@ -294,154 +294,29 @@
 
 </div>
 
-<p id="load">Firebase SDK Loading&hellip;</p>
+<p  title="Firebase Message" id="load">Firebase SDK Loading&hellip;</p>
 
-<div id="messageSnackbar" class="messageSnackbar">Text updated across all devices viewing this page</div>
+<div id="messageSnackbar"  title="Message Snackbar" class="messageSnackbar">Welcome</div>
 
 <script>
 
 
     var db = firebase.firestore();
+    retrieveAll();
+    setDatabaseListeners();
 
-    retrieveUsers();
-    retrieveBlocks();
-    retrieveMessages();
-
-    // var msgInput = document.getElementById("messageText");
-    // msgInput.addEventListener("keyup", function(event) {
-    //     event.preventDefault();
-    //     if (event.keyCode === 13) {
-    //         newMessage();
-    //     }
-    // });
-
-    function retrieveUsers() {
-        users = [];
-        db.collection("users").get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                let user = new User();
-                let dbUser = doc.data();
-                user.userID = doc.id;
-                user.name = dbUser.name;
-                user.coX = dbUser.coX;
-                user.coY = dbUser.coY;
-                user.blockColour = dbUser.blockColour;
-                user.bot = dbUser.bot;
-                user.mining = dbUser.mining;
-
-                addUser(user);
-            }), refreshNodeList();
-        });
-    }
-    function retrieveBlocks() {
-        allBlocks = [];
-        db.collection("blocks").get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                let block = new Block();
-                let dbBlock = doc.data();
-                block.blockID = doc.id;
-                block.blockNo = dbBlock.blockNo;
-                block.hash = dbBlock.hash;
-                block.time = dbBlock.time;
-                block.findingUser = dbBlock.findingUser;
-                block.messages = dbBlock.messages;
-                block.messageHash = dbBlock.messageHash;
-                block.diff = dbBlock.diff;
-
-                addBlock(block);
-            }), refreshBlockList();
-        });
-    }
-
-
-    function retrieveMessages() {
-        messages = [];
-        db.collection("messages").orderBy('Time').get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                let message = new Message();
-                let dbMessage = doc.data();
-                message.messageID = doc.id;
-                message.Content = dbMessage.Content;
-                message.Concensus = dbMessage.Concensus;
-                message.UserID = dbMessage.UserID;
-                message.Time = dbMessage.Time;
-
-                addMessage(message);
-            }), refreshMessages();
-        });
-    }
-
-    db.collection("messages")
-        .onSnapshot(function (snapshot) {
-            retrieveMessages()
-        },function (error) {
-            console(error);
-        });
-
-    db.collection("blocks")
-        .onSnapshot(function (snapshot) {
-            retrieveBlocks()
-        },function (error) {
-            console(error);
-        });
-
-    db.collection("users")
-        .onSnapshot(function (snapshot) {
-            retrieveUsers()
-        },function (error) {
-            console(error);
-        });
-
-
-    String.prototype.contains = function(str) { return this.indexOf(str) != -1; };
-
-    var containsProfanity = function(text){
-        var returnVal = false;
-        for (var i = 0; i < profanities.length; i++) {
-            if(text.toLowerCase().contains(profanities[i].toLowerCase())){
-                returnVal = true;
-                break;
-            }
+    var msgInput = document.getElementById("messageText");
+    msgInput.addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            newMessage();
         }
-        return returnVal;
-    }
+    });
+
+
 
     //New message
-    function newMessage() {
-        var message = new Message();
-        message.UserID = localUser.userID;
-        message.Content = document.getElementById('messageText').value;
 
-        if(!containsProfanity(message.Content)) {
-
-            db.collection("messages").doc().set({
-                Content: message.Content,
-                Concensus: message.Concensus,
-                UserID: message.UserID,
-                Time: message.Time
-            })
-                .then(function () {
-                    refreshMessages();
-                    console.log("Message successfully Added!");
-                })
-                .catch(function (error) {
-                    console.error("Error writing document: ", error);
-                });
-            document.getElementById('messageText').value = "";
-        }else{
-            console.log("Profanity Detected");
-            snackbar("No profanity please.");
-        }
-
-        // var lastMessage = db.collection("messages").orderBy('Time', 'desc').limit(1);
-    }
-
-    function snackbar(text){
-        var snackbar = document.getElementById("messageSnackbar");
-        snackbar.innerText = text;
-        snackbar.className = "show";
-        setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
-    }
 
 </script>
 
