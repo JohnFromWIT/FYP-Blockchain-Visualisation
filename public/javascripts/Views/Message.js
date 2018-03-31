@@ -3,6 +3,7 @@
 //Refresh Message List
 function refreshMessages()
 {
+    console.log("refreshMessages()");
     var list = document.getElementById("tabs_message_list");
     list.innerText = "";
     messages.forEach((message) => {
@@ -13,8 +14,11 @@ function refreshMessages()
 
 function messageListEntry(message)
 {
+    console.log("messageListEntry() for "+message.messageID);
+
     var muserid = message.UserID;
     var user = findUser(muserid);
+    // var user = users[1];
 
 //HTML Elements
     var messageEntry = document.createElement("LI");

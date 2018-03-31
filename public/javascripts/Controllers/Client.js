@@ -1,7 +1,7 @@
 //------- Client Controller -----------//
 
-function addUser(user){
-    users.push(user);
+function addUser(client){
+    users.push(client);
 }
 
 function removeUser(user){
@@ -47,5 +47,33 @@ function retrieveUsers() {
 
             addUser(user);
         }), refreshNodeList();
+    });
+}
+
+function newUser(user) {
+    usersRef.add({
+        'name':user.name,
+        'coX':user.coX,
+        'coY':user.coY,
+        'block':user.block,
+        'bot':user.bot,
+        'mining': user.mining
+    }).then(ref => {
+        console.log('Added bot with ID: ', ref.id);
+        user.userID = ref.id;
+        snackbar(user.name + " added");
+    });
+}
+
+function newUserWithID(user)
+{
+    console.log("newUserWitID(): "+user.userID);
+    db.collection("users").doc(user.userID).set({
+        'name':user.name,
+        'coX':user.coX,
+        'coY':user.coY,
+        'block':user.block,
+        'bot':user.bot,
+        'mining': user.mining
     });
 }

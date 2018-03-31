@@ -8,7 +8,6 @@ function blockListEntry(block){
     var user = findUser(buserid);
     var blockMessages = "";
 
-
     for(i = 0; i < block.messages.length-1; i++)
     {
         var username = findUser(messages[i].UserID).name;

@@ -1,4 +1,10 @@
 //------Utility - Useful Functions-------
+// var localUser = new User();
+//
+// function setLocalUser(user)
+// {
+//     localUser = user;
+// }
 
 function timeString(Time)
 {
@@ -7,8 +13,8 @@ function timeString(Time)
 
 function refreshAll()
 {
-    refreshBlockList();
     refreshNodeList();
+    refreshBlockList();
     retrieveMessages();
 }
 

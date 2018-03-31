@@ -21,28 +21,26 @@ function Bot() {
     var client = new User();
     client.name = "Bot" + Math.floor(Math.random() * 100);
     client.bot = true;
-    usersRef.add({
-        'name':client.name,
-        'coX':client.coX,
-        'coY':client.coY,
-        'block':client.block,
-        'bot':client.bot,
-        'mining': client.mining
-    }).then(ref => {
-        console.log('Added bot with ID: ', ref.id);
-        client.userID = ref.id;
-        refreshNodeList();
-        snackbar(client.name + " added");
-    });
+
+    return client;
+}
+
+function newBot() {
+    var bot = Bot();
+    newUser(bot);
+    refreshNodeList();
+
 }
 
 function findUser(id){
+    var user = new User();
     for (var i = 0; i < users.length; i++) {
         if (users[i]["userID"] === id) {
-            return users[i];
+            user = users[i];
         }
     }
-    return null;
+
+    return user;
 }
 
 

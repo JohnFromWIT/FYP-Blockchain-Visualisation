@@ -4,13 +4,35 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
-    <script type="text/javascript" src="javascripts/FirebaseInitialisation.js"></script>
 
-    <!--Firebase Libraries and Init with config-->
     <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase-database.js"></script>
-    <script>firebase.initializeApp(config);</script>
+    <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase-firestore.js"></script>
+
+    <script type="text/javascript" src="javascripts/FirebaseInitialisation.js"></script>
+    <script type="text/javascript" src="javascripts/Firebase.js"></script>
+    <script type="text/javascript" src="javascripts/Profanity.js"></script>
+
+    <!--Views-->
+    <script type="text/javascript" src="javascripts/Views/Block.js"></script>
+    <script type="text/javascript" src="javascripts/Views/Client.js"></script>
+    <script type="text/javascript" src="javascripts/Views/Message.js"></script>
+
+    <!--Models-->
+    <script type="text/javascript" src="javascripts/Models/Block.js"></script>
+    <script type="text/javascript" src="javascripts/Models/Client.js"></script>
+    <script type="text/javascript" src="javascripts/Models/Message.js"></script>
+
+    <!--Controllers-->
+    <script type="text/javascript" src="javascripts/Controllers/Block.js"></script>
+    <script type="text/javascript" src="javascripts/Controllers/Client.js"></script>
+    <script type="text/javascript" src="javascripts/Controllers/Message.js"></script>
+
+    <script type="text/javascript" src="javascripts/Utility.js"></script>
+
+    <!--<script>firebase.initializeApp(config);</script>-->
 
     <title>Visual ∞ Chain</title>
 
@@ -26,7 +48,7 @@
 <!--Login Box Elements-->
 <div class="message loginbox">
     <h2 id="welcome">Welcome</h2>
-    <a id="blockchain_link" target="_blank" href="blockchain/network.html">Visit Blockchain</a>
+    <a id="blockchain_link" target="_blank" href="home-menu.html">Visit Blockchain</a>
     <!-- Button that handles sign-in/sign-out -->
     <button disabled class="centered mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in">Sign in with Google</button>
     <pre><code id="quickstart-display-name"> </code></pre>
@@ -71,6 +93,37 @@
         document.getElementById('quickstart-sign-in').disabled = true;
     }
 
+
+    function openUser(user) {
+        var dbRef = db.collection("users").doc(user.uid);
+
+        // if (!dbRef.where("id", "==", user.uid))
+        // {
+        //     console("Adding user");
+        //     var localUser = new User();
+        //     localUser.name = "Guest";
+        //     localUser.userID = user.id;
+        //     newUser(localUser);
+        // }
+
+        var getDoc = dbRef.get()
+            .then(doc => {
+                if (!doc.exists) {
+                    console.log('Adding new local user');
+                    var localUser = new User();
+                    localUser.name = "Guest";
+                    localUser.userID = user.uid;
+                    // setLocalUser(localUser);
+                    newUserWithID(localUser);
+                } else {
+                    console.log('Logged in as:', doc.data().name);
+                }
+            })
+            .catch(err => {
+                console.log('Error getting document', err);
+            });
+    }
+
     /**
      * initApp handles setting up UI event listeners and registering Firebase auth listeners:
      *  - firebase.auth().onAuthStateChanged: This listener is called when the user is signed in or
@@ -87,7 +140,7 @@
                 document.getElementById('quickstart-sign-in').textContent = 'Sign out';
                 document.getElementById('quickstart-display-name').textContent = displayName;
                 document.getElementById('blockchain_link').textContent = 'Visit Blockchain';
-
+                openUser(user);
             } else {
                 // User is signed out.
                 document.getElementById('quickstart-sign-in').textContent = 'Sign in with Google';
@@ -103,21 +156,19 @@
         initApp();
     };
 
-</script>
-<script>
+    // //Run Firebase check when page loads
+    // document.addEventListener('DOMContentLoaded', function() {
+    //
+    //     try {
+    //         let app = firebase.app();
+    //         let features = ['auth', 'database', 'messaging', 'storage', 'firestore'].filter(feature => typeof app[feature] === 'function');
+    //         document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
+    //     } catch (e) {
+    //         console.error(e);
+    //         document.getElementById('load').innerHTML = 'FirebaseSDK Not Loaded';
+    //     }
+    // });
 
-    //Run Firebase check when page loads
-    document.addEventListener('DOMContentLoaded', function() {
-
-        try {
-            let app = firebase.app();
-            let features = ['auth', 'database', 'messaging', 'storage', 'firestore'].filter(feature => typeof app[feature] === 'function');
-            document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-            console.error(e);
-            document.getElementById('load').innerHTML = 'FirebaseSDK Not Loaded';
-        }
-    });
 </script>
 
 </body>

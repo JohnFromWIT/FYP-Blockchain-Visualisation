@@ -17,6 +17,7 @@
     <script type="text/javascript" src="../javascripts/FirebaseInitialisation.js"></script>
     <script type="text/javascript" src="../javascripts/Firebase.js"></script>
     <script type="text/javascript" src="../javascripts/Profanity.js"></script>
+
     <script type="text/javascript" src="../javascripts/Utility.js"></script>
 
     <script type="text/javascript" src="../javascripts/Mine.js"></script>
@@ -41,15 +42,36 @@
 
 
     <script>
+
+        var localUser = new User();
+
+        window.onload = function() {
+            initApp();
+        };
+
+        function initApp() {
+            // Listening for auth state changes. Is user signed in?
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    localUser.userID = firebase.auth().currentUser.uid;
+                    localUser.name = firebase.auth().currentUser.displayName;
+                } else {
+                    window.location.replace('index.html')
+                }
+            });
+        }
+
+
         var users = [];
         var allBlocks = [];
         var networkDiff = 2318932150;
         var messages = [];
         // a = Hash(0xf6c94957, 0x27359d02, 3).toString(16);
         var chainLength = 0;
-        var localUser = new User();
-        localUser.userID = "Of4b9xNUAAx4LqesB3oY";
-        localUser.name = "Local User";
+
+
+        // localUser.userID = "fadfasfddasdasf";
+        // localUser.name = "Johnny";
     </script>
 
     <title>Blockchain</title>
@@ -185,7 +207,7 @@
         <div class = "tab_contents">
             <div class="tab_header">
                 <div class="header_box">
-                    <button class="c_add" id="c_btn_add" title="Add a Bot" onclick="Bot()">+</button>
+                    <button class="c_add" id="c_btn_add" title="Add a Bot" onclick="newBot()">+</button>
                 </div>
             </div>
 
@@ -301,7 +323,7 @@
 <script>
 
 
-    var db = firebase.firestore();
+    // var db = firebase.firestore();
     retrieveAll();
     setDatabaseListeners();
 
