@@ -13,22 +13,25 @@ function timeString(Time)
 
 function refreshAll()
 {
+    console.log("refreshAll()");
     refreshNodeList();
     refreshBlockList();
-    retrieveMessages();
+    refreshMessages();
 }
 
 function retrieveAll()
 {
-retrieveUsers();
-retrieveBlocks();
-retrieveMessages();
+    console.log("retrieveAll");
+    retrieveUsers();
+    retrieveBlocks();
+    retrieveMessages();
 }
 
 function setDatabaseListeners()
 {
 db.collection("messages")
     .onSnapshot(function (snapshot) {
+        console.log("database messages changed");
         retrieveMessages()
     },function (error) {
         console(error);

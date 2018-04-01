@@ -10,6 +10,8 @@ var config = {
 
 firebase.initializeApp(config);
 var db = firebase.firestore();
+const blocksRef = db.collection("blocks");
+const messagesRef = db.collection("messages");
 const usersRef = db.collection("users");
 
 

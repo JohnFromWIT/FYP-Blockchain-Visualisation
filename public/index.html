@@ -13,26 +13,17 @@
 
     <script type="text/javascript" src="javascripts/FirebaseInitialisation.js"></script>
     <script type="text/javascript" src="javascripts/Firebase.js"></script>
-    <script type="text/javascript" src="javascripts/Profanity.js"></script>
 
     <!--Views-->
-    <script type="text/javascript" src="javascripts/Views/Block.js"></script>
     <script type="text/javascript" src="javascripts/Views/Client.js"></script>
-    <script type="text/javascript" src="javascripts/Views/Message.js"></script>
 
     <!--Models-->
-    <script type="text/javascript" src="javascripts/Models/Block.js"></script>
     <script type="text/javascript" src="javascripts/Models/Client.js"></script>
-    <script type="text/javascript" src="javascripts/Models/Message.js"></script>
 
     <!--Controllers-->
-    <script type="text/javascript" src="javascripts/Controllers/Block.js"></script>
     <script type="text/javascript" src="javascripts/Controllers/Client.js"></script>
-    <script type="text/javascript" src="javascripts/Controllers/Message.js"></script>
 
     <script type="text/javascript" src="javascripts/Utility.js"></script>
-
-    <!--<script>firebase.initializeApp(config);</script>-->
 
     <title>Visual ∞ Chain</title>
 
@@ -47,20 +38,16 @@
 
 <!--Login Box Elements-->
 <div class="message loginbox">
-    <h2 id="welcome">Welcome</h2>
-    <a id="blockchain_link" target="_blank" href="home-menu.html">Visit Blockchain</a>
-    <!-- Button that handles sign-in/sign-out -->
-    <button disabled class="centered mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in">Sign in with Google</button>
-    <pre><code id="quickstart-display-name"> </code></pre>
+    <h2 id="welcome">Welcome - Sign In</h2>
+    <button class="centered mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in">Sign in with Google</button>
+    <p id="github"><a target="_blank" href="https://github.com/JohnFromWIT/Blockchain-Visualisation-Web-App">Github Repository</a></p>
 </div>
 
 <!--Text Under Login Box - Extra Details-->
 <p>Blockchain Visualisation Web App - 20056594</p>
-<p id="github"><a target="_blank" href="https://github.com/JohnFromWIT/Blockchain-Visualisation-Web-App">Github Repository</a></p>
-<p id="load">Firebase SDK Loading&hellip;</p>
 
 <!--Snack Bar - Should be hidden-->
-<div id="messageSnackbar">Text updated across all devices viewing this page</div>
+<div id="messageSnackbar">Welcome</div>
 
 
 <script>
@@ -96,17 +83,7 @@
 
     function openUser(user) {
         var dbRef = db.collection("users").doc(user.uid);
-
-        // if (!dbRef.where("id", "==", user.uid))
-        // {
-        //     console("Adding user");
-        //     var localUser = new User();
-        //     localUser.name = "Guest";
-        //     localUser.userID = user.id;
-        //     newUser(localUser);
-        // }
-
-        var getDoc = dbRef.get()
+        dbRef.get()
             .then(doc => {
                 if (!doc.exists) {
                     console.log('Adding new local user');
@@ -124,29 +101,13 @@
             });
     }
 
-    /**
-     * initApp handles setting up UI event listeners and registering Firebase auth listeners:
-     *  - firebase.auth().onAuthStateChanged: This listener is called when the user is signed in or
-     *    out, and that is where we update the UI.
-     */
     function initApp() {
         // Listening for auth state changes. Is user signed in?
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 // User is signed in.
-                var displayName = user.displayName;
-
-                document.getElementById('welcome').textContent = "Test Complete";
-                document.getElementById('quickstart-sign-in').textContent = 'Sign out';
-                document.getElementById('quickstart-display-name').textContent = displayName;
-                document.getElementById('blockchain_link').textContent = 'Visit Blockchain';
                 openUser(user);
-            } else {
-                // User is signed out.
-                document.getElementById('quickstart-sign-in').textContent = 'Sign in with Google';
-                document.getElementById('quickstart-display-name').textContent = ' ';
-                document.getElementById('blockchain_link').textContent = 'Log in to visit';
-
+                window.location.replace('home-menu.html');
             }
             document.getElementById('quickstart-sign-in').disabled = false;
         });
@@ -155,19 +116,6 @@
     window.onload = function() {
         initApp();
     };
-
-    // //Run Firebase check when page loads
-    // document.addEventListener('DOMContentLoaded', function() {
-    //
-    //     try {
-    //         let app = firebase.app();
-    //         let features = ['auth', 'database', 'messaging', 'storage', 'firestore'].filter(feature => typeof app[feature] === 'function');
-    //         document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
-    //     } catch (e) {
-    //         console.error(e);
-    //         document.getElementById('load').innerHTML = 'FirebaseSDK Not Loaded';
-    //     }
-    // });
 
 </script>
 

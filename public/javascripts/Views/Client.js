@@ -45,8 +45,6 @@ function clientMapEntry(client){
     if(client.mining === true) {
         div3.classList.add("mining");
     }
-    console.log(client.mining);
-
 }
 
 //Tabs Client List - Add client entry to html and css

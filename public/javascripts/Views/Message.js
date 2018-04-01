@@ -14,7 +14,6 @@ function refreshMessages()
 
 function messageListEntry(message)
 {
-    console.log("messageListEntry() for "+message.messageID);
 
     var muserid = message.UserID;
     var user = findUser(muserid);

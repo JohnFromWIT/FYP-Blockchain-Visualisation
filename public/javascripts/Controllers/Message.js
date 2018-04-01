@@ -7,6 +7,7 @@ function addMessage(message){
 }
 
 function retrieveMessages() {
+    console.log("retrieveMessages()");
     messages = [];
     db.collection("messages").orderBy('Time').get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -19,7 +20,8 @@ function retrieveMessages() {
             message.Time = dbMessage.Time;
 
             addMessage(message);
-        }), refreshMessages();
+        });
+        refreshMessages();
     });
 }
 
