@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="../stylesheets/tabs.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/Tooltips.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/map.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!--Firebase Libraries and Init with config-->
     <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
@@ -78,12 +79,16 @@
 
 </head>
 <body>
-
-<!--Logo Elements-->
-<div class="logo-container" >
-    <img id="logo-tall" title="Visual-Chain Logo" src="https://i.imgur.com/sb4fvdm.png"/>
-    <img id="logo-wide" title="Visual-Chain Logo" src="https://i.imgur.com/vxaU676.png"/>
+<!--NavBar-->
+<div class="navigation-bar">
+    <div id="navigation-container">
+        <img id="logo" src="../images/long/Asset 4ldpi.png">
+        <ul>
+            <li><a href="#">Home</a></li>
+        </ul>
+    </div>
 </div>
+
 <!--Client map-->
 <ul id="map"></ul>
 
@@ -91,25 +96,25 @@
 <div class="message tabbox">
     <!--Tab Headers-->
     <input class="tabs" id="tab1" type="radio" name="tabs" checked>
-    <label class="tab" title="Messages Tab" for="tab1">Messages</label>
+    <label class="tab" title="Messages Tab" for="tab1"><div class="fa fa-comment"></div><div class="tab-text">Messages</div></label>
 
     <input class="tabs" id="tab2" type="radio" name="tabs">
-    <label class="tab" title="Blocks Tab" for="tab2">Blocks</label>
+    <label class="tab" title="Blocks Tab" for="tab2"><div class="fa fa-cube"></div><div class="tab-text">Blocks</div></label>
 
     <input class="tabs" id="tab3" type="radio" name="tabs">
-    <label class="tab" title="Clients Tab" for="tab3">Clients</label>
+    <label class="tab" title="Clients Tab" for="tab3"><div class="fa fa-user"></div><div class="tab-text">Clients</div></label>
 
     <input class="tabs" id="tab4" type="radio" name="tabs">
-    <label class="tab" title="Mining Tab" for="tab4">Mining</label>
+    <label class="tab" title="Mining Tab" for="tab4"><div class="fa fa-diamond"></div><div class="tab-text">Mining</div></label>
 
-    <span class="tooltip">ToolTip<span class="tooltip-content clearfix"><img src="https://heydesign.com/wp-content/uploads/2017/08/Cool-Logos-and-Graphic-Trends-about-Music-DJs-750x500.jpg" /><span class="tooltip-text">Explain what's here</span></span></span>
+    <span class="tooltip fa fa-info-circle"><span class="tooltip-content clearfix"><img src="https://heydesign.com/wp-content/uploads/2017/08/Cool-Logos-and-Graphic-Trends-about-Music-DJs-750x500.jpg" /><span class="tooltip-text">Explain what's here</span></span></span>
     <!--Message Tab-->
     <section id="content1">
         <div class = "tab_contents">
             <div class="tab_header">
                 <div class="header_box">
                     <input class="m_input" id="messageText" type="text" name="fname" placeholder="Write Message Here.." value="">
-                    <button class="m_send" title="Adds a new message." id="btn_NewMessage" onclick="newMessage()">Send</button>
+                    <button class="m_send" title="Adds a new message." id="btn_NewMessage" onclick="newMessage()"><div class="fa fa-send send-icon"></div><div class ="send-text">Send</div></button>
                 </div>
             </div>
 

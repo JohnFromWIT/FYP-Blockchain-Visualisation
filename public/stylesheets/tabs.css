@@ -24,6 +24,8 @@ label.tab {
     border: 1px solid white;
 }
 
+.tab-text{display: inherit}
+
 label.tab:before {
 
     font-weight: normal;
@@ -48,6 +50,7 @@ input:checked + label.tab {
 #tab4:checked ~ #content4 {
     display: block;
 }
+
 
 
 /*START - Inside the tabs - START*/
@@ -83,6 +86,10 @@ input:checked + label.tab {
     height:30px;
     width: 50px;
     border-radius: 2px 10px 10px 2px;
+}
+
+div.send-icon{
+    display: none;
 }
 
 .m_input{
@@ -260,7 +267,9 @@ input:checked + label.tab {
 }
 
 .c_midsection {
-    /*width: 125px;*/
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     float: left;
     font-size: 2em;
     padding:10px;
@@ -431,18 +440,23 @@ input:checked + .slider:before {
 
 /*END - Inside the tabs - END*/
 
-@media screen and (max-width: 650px) {
-    label.tab {
-        font-size: 0;
-    }
+/*Responsiveness*/
+
+
+@media screen and (max-width: 620px) {
     label.tab:before {
         margin: 0;
         font-size: 18px;
     }
+    .tab-text{display: none;}
+    .c_midsection{width: 190px;}
+    .c_leftsection{width: 60px;}
 }
 
 @media screen and (max-width: 400px) {
-    label.tab {
-        padding: 15px;
-    }
+    label.tab {padding: 15px;}
+    div.send-icon{display: block;}
+    .send-text{display: none;}
+
+    .c_midsection{width: 95px; font-size: larger}
 }

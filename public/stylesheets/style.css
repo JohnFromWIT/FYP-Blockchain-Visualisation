@@ -1,18 +1,59 @@
 /*Body*/
-body { background: #212; background-image: url("https://i.imgur.com/23J04Lb.png"); color: rgba(125,125,125,1); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+body { background: #212; background-image: url("../images/backgrounds/Asset_BG2xxhdpi.png"); color: rgba(125,125,125,1); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+#logo-large{ margin: 15px auto 10px; max-width: 90%; padding-left: 0px}
+.fa{padding: 3px;}
+/*Responsiveness*/
+@media (max-width: 480px) {
+    /*Phone Layout*/
+    /*body { border-top: 16px solid #ffa100; }*/
+    #logo{ margin-right: auto; margin-left: auto; max-width: 90%; padding-left: 0px}
+
+
+}
+
+@media (max-width: 720px) {
+    /*Table Layout*/
+
+}
+
+
+/*@media (max-width: 600px) {*/
+    /**/
+    /*body, .message { margin-top: 0;  box-shadow: none; width:590px;}*/
+    /*body { border-top: 16px solid #ffa100; }*/
+    /*!*div.logo{left:12%;}*!*/
+    /*div.logo{width:315px; height:45px; background-image: url("../images/backgrounds/Asset_BG2mdpi.png");}*/
+    /*#logo-tall{display: none}*/
+    /*#logo-wide{display: block}*/
+/*}*/
+
 
 /*Logo*/
-div.logo-container{position:relative; margin: 30px auto 16px; width:327px; height:143px;}
-#logo-tall{display: block}
-#logo-wide{display: none}
+
+/*div.logo-container{position:relative; margin: 30px auto 16px; width:327px; height:143px;}*/
+/*#logo-tall{display: block}*/
+/*#logo-wide{display: none}*/
 
 /*Headings*/
 .title{
   font-weight: bold;
 }
 
+/*.navigation-bar img{*/
+  /*padding-left: 15px;*/
+
+/*}*/
+.navigation-bar ul {
+  float:right;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+  display:inline-block;
+  vertical-align:top;
+}
+
 /*Message Elements*/
-.message { background: white; max-width: 750px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
+.message { background: white; max-width: 750px; margin: auto 16px; padding: 32px 24px; border-radius: 3px; }
 .message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
 .message h1 { font-size: 22px; font-weight: 300; color: rgba(190,190,190,0.9); margin: 0 0 16px;}
 .message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
@@ -21,19 +62,16 @@ div.logo-container{position:relative; margin: 30px auto 16px; width:327px; heigh
 
 /*Login*/
 .loginbox{
-  max-width: 250px;
+    width: 80%;
+    max-width: 250px;
+}
+
+img{
+    max-width: 100%;
+    display: block;
 }
 
 
-/*Responsiveness*/
-@media (max-width: 600px) {
-  body, .message { margin-top: 0;  box-shadow: none; width:590px;}
-  body { border-top: 16px solid #ffa100; }
-  /*div.logo{left:12%;}*/
-  div.logo{width:315px; height:45px; background-image: url("https://i.imgur.com/vxaU676.png");}
-    #logo-tall{display: none}
-    #logo-wide{display: block}
-}
 
 /*Snackbar*/
 #messageSnackbar {
