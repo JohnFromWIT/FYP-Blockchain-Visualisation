@@ -91,7 +91,7 @@ function blockListEntry(block){
     dive.innerText = block.blockNo;
 
     divg.innerText = "TimeStamp: ";
-    divh.innerText = timeString(block.timeStamp);
+    divh.innerText = timeString(block.time);
     // divh.innerText = block.timeStamp;
 
     divj.innerText = "PrevHash: ";

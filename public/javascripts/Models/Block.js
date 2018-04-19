@@ -3,7 +3,7 @@
 function Block(){
     this.blockID = "";
     this.blockNo = 0;
-    this.timeStamp = new Date();
+    this.time = new Date();
     this.findingUser = "";
     this.prevHash = "";
     this.nonce = 0;

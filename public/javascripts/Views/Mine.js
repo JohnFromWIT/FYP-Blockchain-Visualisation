@@ -48,5 +48,4 @@ function attemptList(attempt)
     attemptEntry.appendChild(divd);
     attemptEntry.appendChild(dive);
     attemptEntry.appendChild(br);
-    console.log(attempt.messages)
 }

@@ -75,7 +75,8 @@ function validate(block, diff){
 function mineSuccess(user, block)
 {
     block.hit = true;
-    addBlock(block);
+    // addBlock(block);
+    newBlock(block);
 
     user.nonce = 0;
     user.blockNo = block.blockNo;
@@ -84,9 +85,6 @@ function mineSuccess(user, block)
     {
         user.lastMessage = block.messages[(block.messages.length)-1];
     }
-
-    console.log("before call: "+user.name);
-    console.log("befire call: "+user.userID);
 
     updateFireStore(user);
 

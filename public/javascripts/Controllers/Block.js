@@ -32,3 +32,15 @@ function retrieveBlocks() {
         }), refreshBlockList();
     });
 }
+
+function newBlock(block){
+    blocksRef.doc(""+block.time).set({
+        'blockNo': block.blockNo,
+        'hash':block.hash,
+        'time':block.time,
+        'findingUser':block.findingUser,
+        'messages':block.messages,
+        'messageHash':block.messageHash,
+        'diff':block.diff
+    });
+}

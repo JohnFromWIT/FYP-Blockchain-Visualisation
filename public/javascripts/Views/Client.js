@@ -106,8 +106,6 @@ function clientListEntry(client){
         }, false);
         labela.addEventListener("click", function(){
             var user = findUser(btna.getAttribute("data-parent_id"));
-            console.log(user.mineID);
-
             mineOnOff(user);
             refreshNodeList();
         }, false);
