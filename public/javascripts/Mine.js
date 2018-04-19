@@ -1,12 +1,15 @@
 function mineOnOff(user){
     //var a = getUserMining(userID);
+    // alert(user.mining);
+
     if(user.mining === false)
     {
         startMine(user);
     }else{
         stopMine(user);
     }
-    // updateUser(user);
+    updateUser(user);
+    updateFireStore(user);
     refreshNodeList();
 }
 
@@ -14,15 +17,18 @@ function stopMine(user){
     clearInterval(user.mineID);
     user.mining = false;
     snackbar("User: "+user.name+" stops mining");
+    // updateUser(user);
 }
 
 function startMine(user){
     user.mining = true;
     user.mineID = window.setInterval(mine, 3000, user);
     snackbar("User: "+user.name+" begins mining");
+    // updateUser(user);
 }
 
 function mine(user){
+
 
     let attempt  = new Block();
     user.nonce++;
@@ -35,9 +41,14 @@ function mine(user){
     attempt.prevHash = user.block;
     attempt.hash = hash(attempt);
 
+
     if (validate(attempt, networkDiff))
     {
         mineSuccess(user, attempt);
+    }
+
+    if (user.userID === localUser.userID) {
+        attemptList(attempt);
     }
 }
 
@@ -74,7 +85,15 @@ function mineSuccess(user, block)
         user.lastMessage = block.messages[(block.messages.length)-1];
     }
 
+    console.log("before call: "+user.name);
+    console.log("befire call: "+user.userID);
+
+    updateFireStore(user);
+
     snackbar(user.name + " found a block!");
+    // if(localUser.userID === user.userID){
+    //     alert("localuser found a block");
+    // }
     refreshAll();
 }
 

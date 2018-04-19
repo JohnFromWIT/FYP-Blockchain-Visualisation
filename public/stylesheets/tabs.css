@@ -78,6 +78,7 @@ input:checked + label.tab {
     background: rgba(21,11,21,0.87);
     border: 1px solid rgba(165, 139, 155, 0.87);
     border-radius: 4px;
+    overflow: hidden;
 }
 
 /*START -- Message Tab -- START*/
@@ -404,6 +405,29 @@ input:checked + .slider:before {
 .a_col_messages{
     float:left;
     width:10%;
+}
+
+#mine_attempts {
+    font-size: x-small;
+}
+
+.miner_miss{
+    color: brown;
+}
+
+.miner_hit{
+    color: orange;
+}
+
+#mine_attempts {
+    font-size: x-small;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 150px;
+}
+
+#mine_attempts > div {
+    margin-bottom: -6px;
 }
 
 .miner_statlayer_leftsection{

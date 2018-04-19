@@ -5,11 +5,13 @@ function updateFireStore(user) {
         name: user.name,
         coX: user.coX,
         coY: user.coY,
-        blockColour: user.blockColour,
+        block: user.block,
+        blockNo: user.blockNo,
         bot: user.bot,
-        mining: user.mining
+        mining: user.mining,
+        mineID: user.mineID
     }).then(function () {
-        console.log("Database Updated");
+        console.log("User updated on firestore");
     }).catch(function (error) {
         console.log("Got Error: ", error);
     });

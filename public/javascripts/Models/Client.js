@@ -10,7 +10,7 @@ function User () {
     this.block = 0x1234ffff;
     this.bot = false;
     this.mining = false;
-    this.mineID = "";
+    this.mineID = 0;
     this.nonce = 0;
     this.chain = [];
     this.lastMessage = -1;
@@ -35,7 +35,7 @@ function newBot() {
 function findUser(id){
     var user = new User();
     for (var i = 0; i < users.length; i++) {
-        if (users[i]["userID"] === id) {
+        if (users[i].userID === id) {
             user = users[i];
         }
     }
@@ -53,10 +53,13 @@ function updateUser(user){
             users[i].coX = user.coX;
             users[i].coY = user.coY;
             users[i].blockColour = user.blockColour;
+            users[i].block = user.block;
+            users[i].blockNo = user.blockNo;
             users[i].bot = user.bot;
             users[i].mining = user.mining;
+            users[i].mineID = user.mineID;
+
         }
     }
-    updateFireStore(user);
 }
 

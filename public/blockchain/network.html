@@ -24,11 +24,13 @@
     <script type="text/javascript" src="../javascripts/Mine.js"></script>
     <script type="text/javascript" src="../javascripts/Block.js"></script>
     <script type="text/javascript" src="../javascripts/Message.js"></script>
+    <script type="text/javascript" src="../javascripts/Propogate.js"></script>
 
     <!--Views-->
     <script type="text/javascript" src="../javascripts/Views/Block.js"></script>
     <script type="text/javascript" src="../javascripts/Views/Client.js"></script>
     <script type="text/javascript" src="../javascripts/Views/Message.js"></script>
+    <script type="text/javascript" src="../javascripts/Views/Mine.js"></script>
 
     <!--Models-->
     <script type="text/javascript" src="../javascripts/Models/Block.js"></script>
@@ -45,6 +47,7 @@
     <script>
 
         var localUser = new User();
+        localUser.userID = "U2FmC6Sj5R6KxwUXHRPb";
 
         window.onload = function() {
             initApp();
@@ -54,10 +57,11 @@
             // Listening for auth state changes. Is user signed in?
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
-                    localUser.userID = firebase.auth().currentUser.uid;
-                    localUser.name = firebase.auth().currentUser.displayName;
+                    // snackbar("Welcome " + firebase.auth.currentUser.displayName);
+                    // localUser.userID = firebase.auth().currentUser.uid;
+                    // localUser.name = firebase.auth().currentUser.displayName;
                 } else {
-                    window.location.replace('index.html')
+                    window.location.replace('../index.html')
                 }
             });
         }
@@ -65,6 +69,7 @@
 
         var users = [];
         var allBlocks = [];
+        var chain = [];
         var networkDiff = 2318932150;
         var messages = [];
         // a = Hash(0xf6c94957, 0x27359d02, 3).toString(16);
@@ -82,10 +87,10 @@
 <!--NavBar-->
 <div class="navigation-bar">
     <div id="navigation-container">
-        <img id="logo" src="../images/long/Asset 4ldpi.png">
-        <ul>
-            <li><a href="#">Home</a></li>
-        </ul>
+        <img id="logo" src="../images/long/logo.png">
+        <!--<ul>-->
+            <!--<li><a href="#">Home</a></li>-->
+        <!--</ul>-->
     </div>
 </div>
 
@@ -119,26 +124,6 @@
             </div>
 
             <ul id="tabs_message_list" class="tab_items_list">
-                <!--<div id="m1" class="item_portion">-->
-                    <!--<div class = "m_leftsection">-->
-                        <!--<div class = "m_leftsectionupper">-->
-                            <!--<div class = "m_user">John</div>-->
-                            <!--<div class = "m_timesection">-->
-                                <!--<div class = "m_timetitle">Time: </div>-->
-                                <!--<div class = "m_time">12:58</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="m_progresssection">-->
-                            <!--<div class="m_progressbar">-->
-                                <!--<div class="m_progress"></div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class = "m_content">-->
-                        <!--Hello There!!-->
-                    <!--</div>-->
-                    <!--<div class = "m_cblock"></div>-->
-                <!--</div>-->
             </ul>
 
         </div>
@@ -159,50 +144,6 @@
 <ul id="tabs_block_list" class = "tab_items_list">
 
 </ul>
-            <!--<div id="b1" class="item_portion">-->
-                <!--<div class="b_leftsection">-->
-                    <!--<div class="single_chunk b_number">-->
-                        <!--<div class="chunk_title title">Block#: </div>-->
-                        <!--<div class="chunk_content">0</div>-->
-
-                    <!--</div>-->
-                    <!--<div class="single_chunk b_ts">-->
-                        <!--<div class="chunk_title title">TimeStamp: </div>-->
-                        <!--<div class="chunk_content">12.59</div>-->
-                    <!--</div>-->
-
-                    <!--<div class="single_chunk b_ph">-->
-                        <!--<div class="chunk_title title">PrHash: </div>-->
-                        <!--<div class="chunk_content">ad1e12</div>-->
-                    <!--</div>-->
-
-                <!--</div>-->
-                <!--<div class="b_midsection">-->
-                    <!--<div class="single_chunk b_nonce">-->
-                        <!--<div class="chunk_title title">Nonce: </div>-->
-                        <!--<div class="chunk_content">45</div>-->
-                    <!--</div>-->
-                    <!--<div class="single_chunk b_fb">-->
-                        <!--<div class="chunk_title title">FoundBy: </div>-->
-                        <!--<div class="chunk_content">John</div>-->
-
-                    <!--</div>-->
-                    <!--<div class="single_chunk b_col">-->
-                        <!--<div class="chunk_title title">Colour: </div>-->
-                        <!--<div class="chunk_content">#45581</div>-->
-
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="b_rightsection">-->
-                    <!--<div class="b_messagesbox">-->
-                        <!--<div class="b_message">12:58 - John - Hello There!!</div>-->
-                        <!--<div class="b_message">12:58 - John - Hello There!!</div>-->
-                        <!--<div class="b_message">12:58 - John - Hello There!!</div>-->
-                        <!--<div class="b_message">12:58 - John - Hello There!!</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-
 
         </div>
     </section>
@@ -218,20 +159,6 @@
 
             <ul id="tabs_client_list" class="tab_items_list">
 
-                <!--<li id="c2" class="item_portion">-->
-                    <!--<div class="c_leftsection">-->
-                        <!--<div class="c_block"></div>-->
-                    <!--</div>-->
-                    <!--<div class="c_midsection">First Entry - Needs Removing</div>-->
-                    <!--<div class="c_rightsection">-->
-                        <!--<label class="switch">-->
-                            <!--<input type="checkbox" checked>-->
-                            <!--<span class="slider round"></span>-->
-                        <!--</label>-->
-                        <!--<button class="c_remove" id="c_btn_remove" onclick="removeBot()">-</button>-->
-                    <!--</div>-->
-                <!--</li>-->
-
             </ul>
         </div>
     </section>
@@ -242,7 +169,7 @@
             <div class="tab_header">
                 <div class="header_box">
                     <label class="switch">
-                        <input type="checkbox" checked>
+                        <input id="userMine" type="checkbox" checked>
                         <span  title="Switch Mining On Off" class="slider round"></span>
                     </label>
 
@@ -295,27 +222,8 @@
                 <div class="a_col_messages title">Messages</div>
             </div>
 
-            <div id="a1" class="miner_attempt">
-                <div class="a_col_block">a</div>
-                <div class="a_col_hit">a</div>
-                <div class="a_col_nonce">a</div>
-                <div class="a_col_package">a</div>
-                <div class="a_col_messages">a</div>
-            </div>
-            <div id="a2" class="miner_attempt">
-                <div class="a_col_block">a</div>
-                <div class="a_col_hit">a</div>
-                <div class="a_col_nonce">a</div>
-                <div class="a_col_package">a</div>
-                <div class="a_col_messages">a</div>
-            </div>
-            <div id="a3" class="miner_attempt">
-                <div class="a_col_block">a</div>
-                <div class="a_col_hit">a</div>
-                <div class="a_col_nonce">a</div>
-                <div class="a_col_package">a</div>
-                <div class="a_col_messages">a</div>
-            </div>
+            <ul id = "mine_attempts"></ul>
+
         </div>
     </section>
 
@@ -331,6 +239,7 @@
     // var db = firebase.firestore();
     retrieveAll();
     setDatabaseListeners();
+    window.setInterval(propogate, 4000);
 
     var msgInput = document.getElementById("messageText");
     msgInput.addEventListener("keyup", function(event) {
@@ -340,7 +249,11 @@
         }
     });
 
-
+    var userMine = document.getElementById("userMine");
+    userMine.addEventListener("click", function() {
+        // alert(findUser("W5w2XC8W3lW23qF3FziB").name);
+        mineOnOff(findUser(localUser.userID));
+    });
 
     //New message
 

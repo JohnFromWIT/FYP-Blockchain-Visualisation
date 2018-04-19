@@ -42,22 +42,28 @@ function retrieveUsers() {
             user.coX = dbUser.coX;
             user.coY = dbUser.coY;
             user.blockColour = dbUser.blockColour;
+            user.block = dbUser.block;
+            user.blockNo = dbUser.blockNo;
             user.bot = dbUser.bot;
             user.mining = dbUser.mining;
-
+            user.mineID = dbUser.mineID;
             addUser(user);
+
         }), refreshNodeList();
     });
 }
 
 function newUser(user) {
     usersRef.add({
+        'userID': user.userID,
         'name':user.name,
         'coX':user.coX,
         'coY':user.coY,
         'block':user.block,
+        'blockNo':user.blockNo,
         'bot':user.bot,
-        'mining': user.mining
+        'mining': user.mining,
+        'mineID': user.mineID
     }).then(ref => {
         console.log('Added bot with ID: ', ref.id);
         user.userID = ref.id;
@@ -73,7 +79,9 @@ function newUserWithID(user)
         'coX':user.coX,
         'coY':user.coY,
         'block':user.block,
+        'blockNo':user.blockNo,
         'bot':user.bot,
-        'mining': user.mining
+        'mining': user.mining,
+        'mineID': user.mineID
     });
 }
