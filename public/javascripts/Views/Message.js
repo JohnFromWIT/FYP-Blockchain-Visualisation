@@ -7,7 +7,6 @@ function refreshMessages()
     var list = document.getElementById("tabs_message_list");
     list.innerText = "";
     messages.forEach((message) => {
-
         messageListEntry(message);
     });
 }
@@ -17,6 +16,7 @@ function messageListEntry(message)
 
     var muserid = message.UserID;
     var user = findUser(muserid);
+    var consensus = chain.length - message.blockNo;
     // var user = users[1];
 
 //HTML Elements
@@ -63,10 +63,10 @@ function messageListEntry(message)
     divd.title = "Username";
     divg.title = "Time of Message";
 
-    var ceiling = 100;
+    var consensusCeiling = 100;
     var incrementSize = 10;
 
-    divj.style.width = (message.Concensus*incrementSize<ceiling)? incrementSize * message.Concensus + "%" : ceiling + "%";
+    divj.style.width = (consensus*incrementSize<consensusCeiling)? incrementSize * consensus + "%" : consensusCeiling + "%";
     divk.innerText = message.Content;
 
     //Add to document

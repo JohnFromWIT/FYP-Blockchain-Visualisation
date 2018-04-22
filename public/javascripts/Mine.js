@@ -1,6 +1,5 @@
+//Called when a switch is flipped
 function mineOnOff(user){
-    //var a = getUserMining(userID);
-    // alert(user.mining);
 
     if(user.mining === false)
     {
@@ -11,8 +10,10 @@ function mineOnOff(user){
     updateUser(user);
     updateFireStore(user);
     refreshNodeList();
+    recalculateDiff();
 }
 
+//Stop te user mining
 function stopMine(user){
     clearInterval(user.mineID);
     user.mining = false;
@@ -20,6 +21,7 @@ function stopMine(user){
     // updateUser(user);
 }
 
+// Start the user mining
 function startMine(user){
     user.mining = true;
     user.mineID = window.setInterval(mine, 3000, user);
@@ -27,9 +29,8 @@ function startMine(user){
     // updateUser(user);
 }
 
+//Creates an attempt then validates it
 function mine(user){
-
-
     let attempt  = new Block();
     user.nonce++;
 
@@ -39,6 +40,9 @@ function mine(user){
 
     attempt.messages = latestMessages(user);
     attempt.prevHash = user.block;
+
+    //Comment out one and in the other to switch hash type
+    // attempt.hash = md5Hash(attempt);
     attempt.hash = hash(attempt);
 
 
@@ -52,17 +56,28 @@ function mine(user){
     }
 }
 
+//My own developed Hash
 function hash(hashable){
     //Hash Inputs
-    let ceiling = 0xffffffff;
+
     let prevHash = hashable.prevHash;
     let messageHash = hashable.prevHash;
-    // let messageHash = hashable.messageHash;
     let nonce = hashable.nonce;
 
     //Process
-    let hash = (prevHash*messageHash*nonce)%ceiling;
+    let hash =  floor+(((ceiling-floor)*nonce*nonce*(getDigit(nonce, 4)+getDigit(prevHash, 3))+ ((messageHash*prevHash)/nonce))%(ceiling-floor));
     return hash;
+}
+
+//Imported MD5Hash
+function md5Hash(attempt)
+{
+    var toHash = ''+ attempt.nonce + attempt.messageHash + attempt.prevHash;
+    return md5(toHash);
+}
+
+function getDigit(number, n) {
+    return Math.floor((number / Math.pow(10, n - 1)) % 10);
 }
 
 //validates block hash against difficulty
@@ -71,12 +86,18 @@ function validate(block, diff){
     return(block.hash<diff);
 }
 
-
+//Add block to network
 function mineSuccess(user, block)
 {
     block.hit = true;
-    // addBlock(block);
-    newBlock(block);
+
+    if(user.userID === localUser.userID)
+    {
+        console.log("You found a block");
+        newBlock(block);
+        currentBlock(block);
+    }
+    addBlock(block);
 
     user.nonce = 0;
     user.blockNo = block.blockNo;
@@ -95,3 +116,13 @@ function mineSuccess(user, block)
     refreshAll();
 }
 
+function recalculateDiff(){
+    var numMiners = 1;
+    for(i=0; i<users.length; i++)
+    {
+        if(users[i].mining = true)
+        {numMiners++;}
+    }
+    networkDiff = floor+((ceiling - floor)/10*numMiners);
+    document.getElementById("b_difficulty").innerText = 100-Math.floor((networkDiff/range)*100);
+}

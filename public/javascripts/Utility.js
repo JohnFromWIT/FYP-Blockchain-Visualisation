@@ -1,14 +1,21 @@
 //------Utility - Useful Functions-------
-// var localUser = new User();
-//
-// function setLocalUser(user)
-// {
-//     localUser = user;
-// }
 
 function timeString(Time)
 {
-    return Time.getDay()+'/'+Time.getDate()+'-'+Time.getHours()+':'+Time.getMinutes()+':'+Time.getSeconds();
+    var ts = "";
+    var now = new Date();
+    if (Time.getDay() == now.getDay()-1)
+    {
+        ts = "Yesterday";
+    } else if (Time.getDay() < now.getDay()-1)
+    {
+        ts = Time.getDay() + '-' + Time.getMonth() + '-' + Time.getFullYear().toString().substring(2,3);
+    }
+    else
+    {
+        ts = Time.getHours() + ':' + Time.getMinutes() + ':' + Time.getSeconds();
+    }
+    return ts;
 }
 
 function refreshAll()

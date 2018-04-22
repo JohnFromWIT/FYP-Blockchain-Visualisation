@@ -15,7 +15,7 @@ function retrieveMessages() {
             let dbMessage = doc.data();
             message.messageID = doc.id;
             message.Content = dbMessage.Content;
-            message.Concensus = dbMessage.Concensus;
+            message.blockNo = dbMessage.blockNo;
             message.UserID = dbMessage.UserID;
             message.Time = dbMessage.Time;
 
@@ -34,7 +34,7 @@ function newMessage() {
 
         db.collection("messages").doc().set({
             Content: message.Content,
-            Concensus: message.Concensus,
+            blockNo: message.blockNo,
             UserID: message.UserID,
             Time: message.Time
         })

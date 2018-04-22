@@ -14,6 +14,8 @@
     <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase-firestore.js"></script>
+    <script src="../javascripts/md5.min.js"></script>
+
 
     <script type="text/javascript" src="../javascripts/FirebaseInitialisation.js"></script>
     <script type="text/javascript" src="../javascripts/Firebase.js"></script>
@@ -49,35 +51,19 @@
         var localUser = new User();
         localUser.userID = "U2FmC6Sj5R6KxwUXHRPb";
 
-        window.onload = function() {
-            initApp();
-        };
-
-        function initApp() {
-            // Listening for auth state changes. Is user signed in?
-            firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    // snackbar("Welcome " + firebase.auth.currentUser.displayName);
-                    // localUser.userID = firebase.auth().currentUser.uid;
-                    // localUser.name = firebase.auth().currentUser.displayName;
-                } else {
-                    window.location.replace('../index.html')
-                }
-            });
-        }
 
 
         var users = [];
         var allBlocks = [];
         var chain = [];
-        var networkDiff = 2318932150;
+        var networkDiff = 0x30000000;
         var messages = [];
-        // a = Hash(0xf6c94957, 0x27359d02, 3).toString(16);
+        let ceiling = 0xffffffff;
+        let floor = 0x10000000;
+        let range = ceiling - floor;
         var chainLength = 0;
 
 
-        // localUser.userID = "fadfasfddasdasf";
-        // localUser.name = "Johnny";
     </script>
 
     <title>Blockchain</title>
@@ -87,10 +73,8 @@
 <!--NavBar-->
 <div class="navigation-bar">
     <div id="navigation-container">
-        <img id="logo" src="../images/long/logo.png">
-        <!--<ul>-->
-            <!--<li><a href="#">Home</a></li>-->
-        <!--</ul>-->
+        <a id="sign-out" href="#">Sign Out</a>
+        <img id="logo" src="../images/long.png">
     </div>
 </div>
 
@@ -112,12 +96,13 @@
     <input class="tabs" id="tab4" type="radio" name="tabs">
     <label class="tab" title="Mining Tab" for="tab4"><div class="fa fa-diamond"></div><div class="tab-text">Mining</div></label>
 
-    <span class="tooltip fa fa-info-circle"><span class="tooltip-content clearfix"><img src="https://heydesign.com/wp-content/uploads/2017/08/Cool-Logos-and-Graphic-Trends-about-Music-DJs-750x500.jpg" /><span class="tooltip-text">Explain what's here</span></span></span>
     <!--Message Tab-->
     <section id="content1">
         <div class = "tab_contents">
             <div class="tab_header">
+                <div id="message_title">Add a message <span class="tooltip fa fa-info-circle"><span class="tooltip-content clearfix"><img src="../images/gifs/Consensus.gif" /><br class="tooltip-text">Messages can never be changed or removed.</br></br> Your consensus bar fills with each new block.</span></span></span></div>
                 <div class="header_box">
+
                     <input class="m_input" id="messageText" type="text" name="fname" placeholder="Write Message Here.." value="">
                     <button class="m_send" title="Adds a new message." id="btn_NewMessage" onclick="newMessage()"><div class="fa fa-send send-icon"></div><div class ="send-text">Send</div></button>
                 </div>
@@ -136,8 +121,8 @@
 
             <div class="tab_header">
                 <div class="header_box">
-                    <div class="title" title="Current Network Difficulty" id="b_difficulty">Difficulty: 45</div>
-                    <div class="single_chunk"  title="Current Chain Length" id="b_chainlength">Chain Length: 45</div>
+                    <div class="single_chunk" title="Current Network Difficulty">Difficulty: <span  id="b_difficulty">10</span>%<span class="tooltip fa fa-info-circle"><span class="tooltip-content clearfix"><img src="../images/gifs/Balancing.gif" /><span class="tooltip-text">The network difficulty is calculated so that a new block will be found around every 5 seconds.</span></span></span></div>
+                    <div class="single_chunk"  title="Current Chain Length">Chain Length: <span  id="b_chainlength">0</span><span class="tooltip fa fa-info-circle"><span class="tooltip-content clearfix"><img src="../images/gifs/Chain.gif" /><span class="tooltip-text">Each new block contains part of the previous so that all blocks are connected in a chain.</span></span></span></div>
                 </div>
             </div>
 
@@ -183,33 +168,28 @@
                 <div class="miner_statlayer_leftsection">
 
                     <div class="miner_statlayer1_leftsection_title">
-                        <div class="mi_block" title="Current block colour" style="background: rgb(202, 135, 197)"></div>
-                        Block#: </div>
-                    <div id="m_s" class="miner_statlayer1_leftsection_content">1</div>
+                        <div id="m_colour" class="m_colour" title="Current block colour"></div>
+                        Block#<span class="tooltip fa fa-info-circle"><span class="tooltip-content clearfix"><img src="../images/gifs/Chain.gif" /><span class="tooltip-text">The block's position in the chain.</span></span></span>: </div>
+                    <div id="m_number" class="miner_statlayer1_leftsection_content">Genesis</div>
                 </div>
             </div>
 
                 <div class="miner_statlayer2">
                 <div class="miner_statlayer_leftsection">
-                    <div class="miner_statlayer_leftsection_title title">Nonce</div>
-                    <div id="m_nonce" class="miner_statlayer_leftsection_content">45</div>
+                    <div class="miner_statlayer_leftsection_title title">Nonce<span class="tooltip fa fa-info-circle"><span class="tooltip-content clearfix"><img src="../images/gifs/Nonce.gif" /><span class="tooltip-text">One change before calculating the hash again.</span></span></span>:</div>
+                    <div id="m_nonce" class="miner_statlayer_leftsection_content">0</div>
                 </div>
                 <div class="miner_statlayer_midsection">
-                    <div class="miner_statlayer_midsection_title title">Package</div>
-                    <div id="m_package" class="miner_statlayer_midsection_content">45</div>
+                    <div class="miner_statlayer_midsection_title title">Difficulty<span class="tooltip fa fa-info-circle"><span class="tooltip-content clearfix"><img src="../images/gifs/Balancing.gif" /><span class="tooltip-text">If the hash is lower than the difficulty, a new block is found.</span></span></span>:</div>
+                    <div id="m_difficulty" class="miner_statlayer_midsection_content">0%</div>
 
                 </div>
 
             </div>
             <div class="miner_statlayer2">
                 <div class="miner_statlayer_leftsection">
-                    <div class="miner_statlayer_leftsection_title title">Hit</div>
-                    <div id="m_hit" class="miner_statlayer_leftsection_content">Yes</div>
-
-                </div>
-                <div class="miner_statlayer_midsection">
-                    <div class="miner_statlayer_midsection_title title">Difficulty</div>
-                    <div id="m_difficulty" class="miner_statlayer_midsection_content">45</div>
+                    <div class="miner_statlayer_leftsection_title title">Hash<span class="tooltip fa fa-info-circle"><span class="tooltip-content clearfix"><img src="../images/gifs/Block-Making.gif" /><span class="tooltip-text">A hash is a number calculated from the block's properties.</span></span></span>:</div>
+                    <div id="m_package" class="miner_statlayer_leftsection_content">0</div>
 
                 </div>
             </div>
@@ -218,7 +198,7 @@
                 <div class="a_col_block title">Block</div>
                 <div class="a_col_hit title">Hit</div>
                 <div class="a_col_nonce title">Nonce</div>
-                <div class="a_col_package title">Package</div>
+                <div class="a_col_package title">Hash</div>
                 <div class="a_col_messages title">Messages</div>
             </div>
 
@@ -228,8 +208,6 @@
     </section>
 
 </div>
-
-<p  title="Firebase Message" id="load">Firebase SDK Loading&hellip;</p>
 
 <div id="messageSnackbar"  title="Message Snackbar" class="messageSnackbar">Welcome</div>
 
@@ -257,29 +235,29 @@
 
     //New message
 
+    var signout = document.getElementById("sign-out");
+    signout.addEventListener("click", function() {
+        firebase.auth().signOut();
 
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
-        try {
-            let app = firebase.app();
-            let features = ['auth', 'database', 'messaging', 'storage', 'firestore'].filter(feature => typeof app[feature] === 'function');
-            document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-            console.error(e);
-            document.getElementById('load').innerHTML = '!!  FIREBASE BROKEN  !!';
-        }
     });
+
+
+    function initApp() {
+        // Listening for auth state changes. Is user signed in?
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (!user) {
+                window.location.replace('index.html')
+            }
+
+        });
+    }
+
+    window.onload = function() {
+        initApp();
+        snackbar("Welcome to VisualChain!");
+    };
+
+
 </script>
 
 </body>

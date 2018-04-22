@@ -7,7 +7,7 @@ function User () {
     this.coX = Math.floor(Math.random()*100);
     this.coY = Math.floor(Math.random()*100);
     this.blockNo = 0;
-    this.block = 0x1234ffff;
+    this.block = 0x592A4CE6;
     this.bot = false;
     this.mining = false;
     this.mineID = 0;

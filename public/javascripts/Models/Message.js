@@ -3,7 +3,7 @@
 function Message(){
     this.messageID = "";
     this.Content = "";
-    this.Concensus = 0;
+    this.blockNo = chain.length;
     this.UserID = "";
     this.Time = new Date();
 }

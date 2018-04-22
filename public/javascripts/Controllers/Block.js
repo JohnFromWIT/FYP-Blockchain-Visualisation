@@ -5,22 +5,27 @@ function addBlock(block){
     allBlocks.unshift(block);
 }
 
+function addChain(block){
+    chain.unshift(block);
+}
+
 function refreshBlockList() {
     var list = document.getElementById("tabs_block_list");
     list.innerText = "";
-    allBlocks.forEach((block) => {
+    chain.forEach((block) => {
         blockListEntry(block);
     });
 }
 
 function retrieveBlocks() {
-    allBlocks = [];
+    chain = [];
     db.collection("blocks").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
             let block = new Block();
             let dbBlock = doc.data();
             block.blockID = doc.id;
             block.blockNo = dbBlock.blockNo;
+            block.nonce = dbBlock.nonce;
             block.hash = dbBlock.hash;
             block.time = dbBlock.time;
             block.findingUser = dbBlock.findingUser;
@@ -28,7 +33,7 @@ function retrieveBlocks() {
             block.messageHash = dbBlock.messageHash;
             block.diff = dbBlock.diff;
 
-            addBlock(block);
+            addChain(block);
         }), refreshBlockList();
     });
 }
@@ -36,6 +41,7 @@ function retrieveBlocks() {
 function newBlock(block){
     blocksRef.doc(""+block.time).set({
         'blockNo': block.blockNo,
+        'nonce': block.nonce,
         'hash':block.hash,
         'time':block.time,
         'findingUser':block.findingUser,

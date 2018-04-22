@@ -83,6 +83,10 @@ input:checked + label.tab {
 
 /*START -- Message Tab -- START*/
 
+#message_title{
+    float:left;
+}
+
 .m_send{
     height:30px;
     width: 50px;
@@ -357,7 +361,7 @@ input:checked + .slider:before {
 
 }
 
-.mi_block{
+.m_colour{
     border: 2px solid white;
     border-radius: 5px;
     width: 20px;
