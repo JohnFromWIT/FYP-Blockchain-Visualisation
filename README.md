@@ -4,6 +4,9 @@ This is being developed as part of the
 BSc (Hons) in Multimedia Applications Development  
 Waterford Institute of Technology
 
+Youtube Overview
+https://youtu.be/3SrnnE-bZbA
+
 Objective - Show visually how a blockchain is:  
 -Initialised  
 -Expanded  
@@ -17,8 +20,7 @@ Fields of development are:
 Software being used:  
 -Node.js  
 -WebStorm  
--Heroku  
--MongoDB  
+-Firebase  
 -Git  
 
 Description:  
