@@ -5,7 +5,7 @@ BSc (Hons) in Multimedia Applications Development
 Waterford Institute of Technology
 
 Youtube Overview
-https://youtu.be/3SrnnE-bZbA
+https://youtu.be/3SrnnE-bZbA?t=1m1s
 
 Objective - Show visually how a blockchain is:  
 -Initialised  
